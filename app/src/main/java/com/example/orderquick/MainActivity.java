@@ -10,26 +10,39 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button register;
-    EditText userName;
-    EditText userPassword;
-    EditText userTelNr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //init vars.
-        register.findViewById(R.id.registerBtn);
-        userName.findViewById(R.id.edUserRegName);
-        userPassword.findViewById(R.id.edUserRegPass);
-        userTelNr.findViewById(R.id.edUserRegTell);
-        //event listeners.
+        Button register = (Button) findViewById(R.id.registerBtn);
+        final EditText userName = (EditText) findViewById(R.id.edUserRegName);
+        final EditText userPassword =(EditText) findViewById(R.id.edUserRegPass);
+        final EditText userTelNr = (EditText) findViewById(R.id.edUserRegTell) ;
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //code when the register button is clicked.
-                Toast.makeText(MainActivity.this, "Register button was pressed", Toast.LENGTH_SHORT).show();
+                CustomerModel customerModel;
+                try {
+                    customerModel = new CustomerModel(-1,userName.getText().toString(),
+                            userTelNr.getText().toString(),
+                            userPassword.getText().toString(),
+                            3);
+                    DBHelper dbHelper = new DBHelper(MainActivity.this);
+                    boolean check = dbHelper.AddCustomerToDb(customerModel);
+                    if (check){
+                        Toast.makeText(MainActivity.this, "Customer added to database", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(MainActivity.this, "error while adding customer to database.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Customer NOT added to database", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
