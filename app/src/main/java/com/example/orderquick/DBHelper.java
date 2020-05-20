@@ -2,6 +2,7 @@ package com.example.orderquick;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -45,11 +46,17 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(CUSTOMER_TELEPHONE_NUMBER,customerModel.getTelephoneNumber());
         contentValues.put(CUSTOMER_ROLE,customerModel.getRole());
         long insert = db.insert(CUSTOMER, null, contentValues);
-        if (insert==1){
-            return true;
-        }
-        else {
-        return false;
-        }
+        if (insert==1){ return true; }
+        else { return false;}
+    }
+
+    public boolean UniqueUserTel(String telephoneNumer){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query =  "SELECT * FROM " + CUSTOMER +
+                        " WHERE " + CUSTOMER_TELEPHONE_NUMBER +
+                        " = " + telephoneNumer;
+        Cursor cursor = db.rawQuery(query,null);
+        if(cursor.moveToFirst()){return true;}
+        else {return false;}
     }
 }
