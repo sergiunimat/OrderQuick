@@ -82,4 +82,18 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return dbuser;
     }
+
+    /*I: function that enables the user to modify its data.*/
+    public boolean EditCustomer(CustomerModel customerModel){
+        SQLiteDatabase db =this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CUSTOMER_NAME,customerModel.getCustomerName());
+        contentValues.put(CUSTOMER_PASSWORD,customerModel.getPassword());
+        contentValues.put(CUSTOMER_TELEPHONE_NUMBER,customerModel.getTelephoneNumber());
+        contentValues.put(CUSTOMER_ROLE,customerModel.getRole());
+        int i =  db.update(CUSTOMER, contentValues, CUSTOMER_ID + "=" + customerModel.getCustomerId(), null);
+        db.close();
+        if (i>=1){ return true; }
+        else { return false;}
+    }
 }

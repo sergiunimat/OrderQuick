@@ -75,6 +75,8 @@ public class MainCustomerView extends BaseAppClass {
         switch (item.getItemId()){
             case R.id.customer_profile_id:
                 Toast.makeText(this, "For this you need to redirect the user to its profile and allow him/her to modify ", Toast.LENGTH_LONG).show();
+                Intent profile = new Intent(this,CustomerProfile.class);
+                startActivity(profile);
                 return true;
             case R.id.customer_orders_id:
                 Toast.makeText(this, "Create and show the list of orders the user has if null show message there isnt any order yet", Toast.LENGTH_LONG).show();

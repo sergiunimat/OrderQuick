@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomerProfile">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:paddingTop="60dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="20dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/user"/>
+    <!-- User name -->
+    <EditText
+        android:layout_centerVertical="true"
+        android:id="@+id/edit_username_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:hint="enter your name to edit"
+        android:inputType="textPersonName" />
+
+    <!-- User pass -->
+    <EditText
+        android:layout_below="@id/edit_usertel_id"
+        android:id="@+id/edit_userpassword_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="enter password to edit"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:inputType="textPassword" />
+    <!-- User conf pass -->
+
+
+
+    <EditText
+        android:layout_below="@id/edit_username_id"
+        android:id="@+id/edit_usertel_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:hint="enter your phone nr. to edit"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:layout_below="@id/edit_userpassword_id"
+        android:id="@+id/edit_user_button_id"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"/>
+
+</RelativeLayout>

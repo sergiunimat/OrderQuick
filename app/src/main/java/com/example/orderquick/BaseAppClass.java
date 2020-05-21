@@ -4,5 +4,5 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseAppClass  extends AppCompatActivity {
 
-    public CustomerModel APPLICATION_CURRENT_USER = new CustomerModel();
+    public static CustomerModel APPLICATION_CURRENT_USER = null;
 }
