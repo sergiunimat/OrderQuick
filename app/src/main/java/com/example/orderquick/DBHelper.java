@@ -17,7 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CUSTOMER_ID = "CustomerId";
 
     public DBHelper(@Nullable Context context) {
-        super(context, "db.OrderQuick", null, 1);
+        super(context, "db.OrderQuickk", null, 1);
     }
 
     @Override
@@ -38,6 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    //add customer to database when register (default role.3)
     public boolean AddCustomerToDb(CustomerModel customerModel){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -46,10 +47,12 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(CUSTOMER_TELEPHONE_NUMBER,customerModel.getTelephoneNumber());
         contentValues.put(CUSTOMER_ROLE,customerModel.getRole());
         long insert = db.insert(CUSTOMER, null, contentValues);
-        if (insert==1){ return true; }
+        db.close();
+        if (insert>=1){ return true; }
         else { return false;}
     }
 
+    //check if tel nr is unique
     public boolean UniqueUserTel(String telephoneNumer){
         SQLiteDatabase db = this.getReadableDatabase();
         String query =  "SELECT * FROM " + CUSTOMER +
@@ -58,5 +61,25 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query,null);
         if(cursor.moveToFirst()){return true;}
         else {return false;}
+    }
+
+    public CustomerModel  Login(String username,String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM "+CUSTOMER+
+                " WHERE " +CUSTOMER_NAME+" = '" +username+
+                "' AND "+CUSTOMER_PASSWORD+" = '"+password+"'";
+        Cursor cursor = db.rawQuery(query,null);
+        CustomerModel dbuser = new CustomerModel();
+        if (cursor.moveToFirst()){
+            dbuser.setCustomerId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CUSTOMER_ID))));
+            dbuser.setCustomerName(cursor.getString(cursor.getColumnIndex(CUSTOMER_NAME)));
+            dbuser.setPassword(cursor.getString(cursor.getColumnIndex(CUSTOMER_PASSWORD)));
+            dbuser.setTelephoneNumber(cursor.getString(cursor.getColumnIndex(CUSTOMER_TELEPHONE_NUMBER)));
+            dbuser.setRole(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CUSTOMER_ROLE))));
+        }
+        cursor.close();
+        db.close();
+        return dbuser;
     }
 }

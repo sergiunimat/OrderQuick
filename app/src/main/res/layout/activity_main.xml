@@ -23,15 +23,19 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/mobileapplog" />
 
+        <!-- User name -->
         <EditText
             android:layout_centerVertical="true"
             android:id="@+id/edUserRegName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:hint="enter your name"
             android:inputType="textPersonName" />
 
+        <!-- User pass -->
         <EditText
             android:layout_below="@id/edUserRegTell"
             android:id="@+id/edUserRegPass"
@@ -39,7 +43,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="enter password"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:inputType="textPassword" />
+        <!-- User conf pass -->
 
         <EditText
             android:layout_below="@id/edUserRegPass"
@@ -47,6 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:hint="confirm password"
             android:inputType="textPassword" />
 
@@ -56,16 +65,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:hint="enter your phone nr."
             android:inputType="textPersonName" />
 
-        <Button
-            android:layout_below="@id/edUserRegPassConf"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/registerBtn"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register" />
+            android:orientation="horizontal"
+            android:layout_below="@+id/edUserRegPassConf"
+            android:layout_centerHorizontal="true"
+            >
+
+            <Button
+                android:id="@+id/registerBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" or "/>
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login" />
+
+
+        </LinearLayout>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,7 @@ package com.example.orderquick;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.ColorStateList;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseAppClass {
 
 
 
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //init vars.
         Button register = (Button) findViewById(R.id.registerBtn);
+        Button login = (Button) findViewById(R.id.loginBtn);
         final EditText userName = (EditText) findViewById(R.id.edUserRegName);
         final EditText userPassword =(EditText) findViewById(R.id.edUserRegPass);
         final EditText userTelNr = (EditText) findViewById(R.id.edUserRegTell) ;
@@ -65,7 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 }catch (Exception e){
                     Toast.makeText(MainActivity.this, "Customer NOT added to database", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent(v.getContext(),LogIn.class);
+                startActivity(login);
             }
         });
     }
