@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainCustomerView">
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:id="@+id/customer_main_tabulator_id"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/customer_main_pizza_item_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pizza" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/customer_main_pasta_item_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pasta" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/customer_main_desserts_item_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desserts" />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/customer_main_vegetarian_item_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegetarian" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_below="@+id/customer_main_tabulator_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/customer_main_viewpager_id"/>
+</RelativeLayout>

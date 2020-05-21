@@ -47,6 +47,10 @@ public class LogIn extends BaseAppClass {
                          //init global user. when login
                          APPLICATION_CURRENT_USER = cuser;
                          // - if global user role is 3 - go customer views
+                         if (APPLICATION_CURRENT_USER.getRole()==3){
+                             Intent maincustomerView = new Intent(v.getContext(),MainCustomerView.class);
+                             startActivity(maincustomerView);
+                         }
                          // - if global user role is 2 - go restaurant views
                          // - if global user role is 1 - go admin views
                      }
