@@ -43,16 +43,22 @@ public class LogIn extends BaseAppClass {
                      CustomerModel cuser = new CustomerModel();
                      cuser = dbHelper.Login(username.getText().toString(), password.getText().toString());
                      if (cuser!=null){
-                         Toast.makeText(LogIn.this, "User logged ing", Toast.LENGTH_LONG).show();
-                         //init global user. when login
-                         APPLICATION_CURRENT_USER = cuser;
-                         // - if global user role is 3 - go customer views
-                         if (APPLICATION_CURRENT_USER.getRole()==3){
-                             Intent maincustomerView = new Intent(v.getContext(),MainCustomerView.class);
-                             startActivity(maincustomerView);
+                         //check if the credentials do match
+                         if(cuser.getCustomerName()==null){
+                             Toast.makeText(LogIn.this, "User name or password is incorrect", Toast.LENGTH_LONG).show();
                          }
-                         // - if global user role is 2 - go restaurant views
-                         // - if global user role is 1 - go admin views
+                         else {
+                             //init global user. when login
+                             APPLICATION_CURRENT_USER = cuser;
+                             // - if global user role is 3 - go customer views
+                             if (APPLICATION_CURRENT_USER.getRole() == 3) {
+                                 Toast.makeText(LogIn.this, "Wellcome "+APPLICATION_CURRENT_USER.getCustomerName(), Toast.LENGTH_LONG).show();
+                                 Intent maincustomerView = new Intent(v.getContext(), MainCustomerView.class);
+                                 startActivity(maincustomerView);
+                             }
+                             // - if global user role is 2 - go restaurant views
+                             // - if global user role is 1 - go admin views
+                         }
                      }
                      else {
                          Toast.makeText(LogIn.this, "incorrect user credentials", Toast.LENGTH_LONG).show();

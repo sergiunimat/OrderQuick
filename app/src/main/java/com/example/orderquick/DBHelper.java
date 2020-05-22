@@ -15,9 +15,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CUSTOMER_TELEPHONE_NUMBER = "CustomerTelephoneNumber";
     public static final String CUSTOMER_ROLE = "CustomerRole";
     public static final String CUSTOMER_ID = "CustomerId";
+    public static final String CUSTOMER_WAGE = "CustomerWage";
 
     public DBHelper(@Nullable Context context) {
-        super(context, "db.OrderQuickk", null, 1);
+        super(context, "db.TestDb", null, 1);
     }
 
     @Override
@@ -27,8 +28,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     CUSTOMER_NAME + " TEXT," +
                     CUSTOMER_PASSWORD + " TEXT," +
                     CUSTOMER_TELEPHONE_NUMBER + " TEXT," +
-                    CUSTOMER_ROLE + " INT)";
-
+                    CUSTOMER_ROLE + " INT,"+
+                CUSTOMER_WAGE +" TEXT)";
         db.execSQL(customerTable);
 
     }
@@ -46,6 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(CUSTOMER_PASSWORD,customerModel.getPassword());
         contentValues.put(CUSTOMER_TELEPHONE_NUMBER,customerModel.getTelephoneNumber());
         contentValues.put(CUSTOMER_ROLE,customerModel.getRole());
+        contentValues.put(CUSTOMER_WAGE,customerModel.getWage());
         long insert = db.insert(CUSTOMER, null, contentValues);
         db.close();
         if (insert>=1){ return true; }
@@ -77,6 +79,8 @@ public class DBHelper extends SQLiteOpenHelper {
             dbuser.setPassword(cursor.getString(cursor.getColumnIndex(CUSTOMER_PASSWORD)));
             dbuser.setTelephoneNumber(cursor.getString(cursor.getColumnIndex(CUSTOMER_TELEPHONE_NUMBER)));
             dbuser.setRole(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CUSTOMER_ROLE))));
+            dbuser.setWage(cursor.getString(cursor.getColumnIndex(CUSTOMER_WAGE)));
+
         }
         cursor.close();
         db.close();
@@ -91,6 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(CUSTOMER_PASSWORD,customerModel.getPassword());
         contentValues.put(CUSTOMER_TELEPHONE_NUMBER,customerModel.getTelephoneNumber());
         contentValues.put(CUSTOMER_ROLE,customerModel.getRole());
+        contentValues.put(CUSTOMER_WAGE,customerModel.getWage());
         int i =  db.update(CUSTOMER, contentValues, CUSTOMER_ID + "=" + customerModel.getCustomerId(), null);
         db.close();
         if (i>=1){ return true; }

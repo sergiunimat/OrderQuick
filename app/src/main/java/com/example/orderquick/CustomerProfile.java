@@ -1,6 +1,7 @@
 package com.example.orderquick;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,15 +43,18 @@ public class CustomerProfile extends BaseAppClass {
                 customerModel.setTelephoneNumber(edit_user_tel.getText().toString());
                 customerModel.setCustomerName(edit_user_name.getText().toString());
                 customerModel.setCustomerId(APPLICATION_CURRENT_USER.getCustomerId());
+                customerModel.setWage(APPLICATION_CURRENT_USER.getWage());
                 boolean b = dbh.EditCustomer(customerModel);
                 if (b){
-                    Toast.makeText(CustomerProfile.this, "User updates successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerProfile.this, "Update Success", Toast.LENGTH_SHORT).show();
                     Intent login = new Intent(v.getContext(),LogIn.class);
+                    //do not allow the user to go back to previous activity
+                    login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(login);
-                    finish();
+
                 }
                 else {
-                    Toast.makeText(CustomerProfile.this, "User could not be updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerProfile.this, "Update Fail", Toast.LENGTH_SHORT).show();
                 }
 
                 //1.create a function in the database that updated the records

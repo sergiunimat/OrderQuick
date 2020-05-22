@@ -6,13 +6,15 @@ public class CustomerModel {
     private String TelephoneNumber;
     private String Password;
     private int Role;
+    private String Wage;
 
-    public CustomerModel(int customerId, String customerName, String telephoneNumber, String password, int role) {
+    public CustomerModel(int customerId, String customerName, String telephoneNumber, String password, int role, String wage) {
         CustomerId = customerId;
         CustomerName = customerName;
         TelephoneNumber = telephoneNumber;
         Password = password;
         Role = role;
+        Wage =wage;
     }
 
     public CustomerModel() {
@@ -26,7 +28,16 @@ public class CustomerModel {
                 ", TelephoneNumber='" + TelephoneNumber + '\'' +
                 ", Password='" + Password + '\'' +
                 ", Role=" + Role +
+                ", Wage=" + Wage +
                 '}';
+    }
+
+    public String getWage() {
+        return Wage;
+    }
+
+    public void setWage(String wage) {
+        Wage = wage;
     }
 
     public int getCustomerId() {

@@ -46,7 +46,8 @@ public class MainActivity extends BaseAppClass {
                         customerModel = new CustomerModel(-1,userName.getText().toString(),
                                 userTelNr.getText().toString(),
                                 userPassword.getText().toString(),
-                                3);
+                                3,
+                                "0");
                         DBHelper dbHelper = new DBHelper(MainActivity.this);
                         boolean userTelExists = dbHelper.UniqueUserTel(userTelNr.getText().toString());
                         if(userTelExists){
