@@ -56,6 +56,11 @@ public class LogIn extends BaseAppClass {
                                  Intent maincustomerView = new Intent(v.getContext(), MainCustomerView.class);
                                  startActivity(maincustomerView);
                              }
+                             else if(APPLICATION_CURRENT_USER.getRole() == 0){
+                                 Toast.makeText(LogIn.this, "Wellcome "+APPLICATION_CURRENT_USER.getCustomerName(), Toast.LENGTH_LONG).show();
+                                 Intent mainAdminActivity = new Intent(v.getContext(), MainAdminActivity.class);
+                                 startActivity(mainAdminActivity);
+                             }
                              // - if global user role is 2 - go restaurant views
                              // - if global user role is 1 - go admin views
                          }
