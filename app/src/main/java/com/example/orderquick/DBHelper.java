@@ -63,8 +63,8 @@ public class DBHelper extends SQLiteOpenHelper {
                         " WHERE " + CUSTOMER_TELEPHONE_NUMBER +
                         " = " + telephoneNumer;
         Cursor cursor = db.rawQuery(query,null);
-        cursor.close();
-        db.close();
+//        cursor.close();
+//        db.close();
         if(cursor.moveToFirst()){return true;}
         else {return false;}
     }
@@ -141,6 +141,16 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return customerModels;
+    }
+
+
+    /*I: delete user by unique telephone number*/
+    public boolean DeleteCustomerByTelephoneNumber(String telephoneNumber){
+        SQLiteDatabase db =this.getWritableDatabase();
+        int result = db.delete(CUSTOMER, CUSTOMER_TELEPHONE_NUMBER + " = " + telephoneNumber, null);
+        db.close();
+        if (result>=1){return true;}
+        else {return false;}
     }
 
     /*I: get all employees from the database*/

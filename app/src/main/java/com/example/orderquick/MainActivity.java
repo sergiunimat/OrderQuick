@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.Console;
 
 public class MainActivity extends BaseAppClass {
 
@@ -44,10 +47,11 @@ public class MainActivity extends BaseAppClass {
                     else {
 
                         customerModel = new CustomerModel(-1,userName.getText().toString(),
-                                userTelNr.getText().toString(),
                                 userPassword.getText().toString(),
+                                userTelNr.getText().toString(),
                                 3,
-                                "0");
+                                "zero");
+
                         DBHelper dbHelper = new DBHelper(MainActivity.this);
                         boolean userTelExists = dbHelper.UniqueUserTel(userTelNr.getText().toString());
                         if(userTelExists){
@@ -65,7 +69,8 @@ public class MainActivity extends BaseAppClass {
                         }
                     }
                 }catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Customer NOT added to database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    Log.i("Info",e.toString());
                 }
             }
         });

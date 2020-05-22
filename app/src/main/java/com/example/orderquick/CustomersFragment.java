@@ -1,6 +1,7 @@
 package com.example.orderquick;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -33,7 +34,7 @@ public class CustomersFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_customers, container, false);
         DBHelper dbH = new DBHelper(container.getContext());
@@ -46,26 +47,7 @@ public class CustomersFragment extends Fragment {
             CustomerViewModel cvm = new CustomerViewModel(R.drawable.user2,customer.getCustomerName(),customer.getTelephoneNumber());
             customerViewModels.add(cvm);
         }
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Sergiu","7777777"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Graziella","1111111"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Ricco","5555555"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Mango","6666666"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Sergiu","7777777"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Graziella","1111111"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Ricco","5555555"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Mango","6666666"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Sergiu","7777777"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Graziella","1111111"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Ricco","5555555"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Mango","6666666"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Sergiu","7777777"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Graziella","1111111"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Ricco","5555555"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Mango","6666666"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Sergiu","7777777"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Graziella","1111111"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Ricco","5555555"));
-//        customerViewModels.add(new CustomerViewModel(R.drawable.user2,"Mango","6666666"));
+
 
         recyclerView = (RecyclerView)view.findViewById(R.id.admin_customer_recycler_view_id);
 //        recyclerView.setHasFixedSize(true);
@@ -77,10 +59,13 @@ public class CustomersFragment extends Fragment {
         adapter.setOnItemClickListener(new AdminCustomerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                /*I: get current item*/
                 CustomerViewModel customerViewModel = customerViewModels.get(position);
-
-                //here we take the element and pass it to the new customer activity activity
-                Toast.makeText(view.getContext(), customerViewModel.getName() , Toast.LENGTH_SHORT).show();
+                /*I: create new intent to the delete customer activity*/
+                Intent editCustomer = new Intent(container.getContext(),AdminEditCustomerActivuty.class);
+                /*I: send object to the new intent - NOTE YOU MIGHT LIKE TO SEND THE ID TO!*/
+                editCustomer.putExtra("CustomerViewModel",customerViewModel);
+                startActivity(editCustomer);
             }
         });
         // Inflate the layout for this fragment

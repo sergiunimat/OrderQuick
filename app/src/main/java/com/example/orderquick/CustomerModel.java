@@ -8,7 +8,7 @@ public class CustomerModel {
     private int Role;
     private String Wage;
 
-    public CustomerModel(int customerId, String customerName, String telephoneNumber, String password, int role, String wage) {
+    public CustomerModel(int customerId, String customerName,String password, String telephoneNumber, int role, String wage) {
         CustomerId = customerId;
         CustomerName = customerName;
         TelephoneNumber = telephoneNumber;
