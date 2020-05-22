@@ -1,20 +1,58 @@
 package com.example.orderquick;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainAdminActivity extends AppCompatActivity {
+public class MainAdminActivity extends BaseAppClass {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TabItem meal,order,customer,employee;
     public AdminPageAdapter pageAdapter;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.admin_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.admin_profile_id:
+                Intent profile = new Intent(this,CustomerProfile.class);
+                startActivity(profile);
+                return true;
+            case R.id.admin_ad_employee_id:
+                Toast.makeText(this, "Still need to do it, similar to register - new indent", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.admin_ad_meal_id:
+                Toast.makeText(this, "Add meal - This mifgt be the most challenging one ", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.admin_logout_id:
+                APPLICATION_CURRENT_USER =null;
+                Intent login = new Intent(this,LogIn.class);
+                startActivity(login);
+                //deny user to go back to previous activity once is logged out.
+                finish();
+
+                return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

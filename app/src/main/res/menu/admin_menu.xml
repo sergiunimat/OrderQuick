@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/admin_profile_id"
+        android:title="Profile"/>
+
+    <item
+        android:id="@+id/admin_ad_employee_id"
+        android:title="Add Employee"/>
+
+    <item
+        android:id="@+id/admin_ad_meal_id"
+        android:title="Add Meal"/>
+
+    <item
+        android:id="@+id/admin_logout_id"
+        android:title="Log Out"/>
+
+</menu>

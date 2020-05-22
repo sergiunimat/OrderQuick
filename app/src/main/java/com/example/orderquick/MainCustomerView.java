@@ -74,7 +74,6 @@ public class MainCustomerView extends BaseAppClass {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.customer_profile_id:
-                Toast.makeText(this, "For this you need to redirect the user to its profile and allow him/her to modify ", Toast.LENGTH_LONG).show();
                 Intent profile = new Intent(this,CustomerProfile.class);
                 startActivity(profile);
                 return true;
