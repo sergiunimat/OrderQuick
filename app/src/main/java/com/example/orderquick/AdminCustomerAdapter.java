@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdapter.ExampleViewHolder> {
-    private ArrayList<ExampleItem> exList;
+    private ArrayList<CustomerViewModel> exList;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener{
@@ -54,8 +54,8 @@ public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdap
     }
 
     /*I: Constructor that receives the data we want to pass*/
-    public AdminCustomerAdapter(ArrayList<ExampleItem> exampleItems){
-        exList = exampleItems;
+    public AdminCustomerAdapter(ArrayList<CustomerViewModel> customerViewModels){
+        exList = customerViewModels;
     }
 
     @NonNull
@@ -72,7 +72,7 @@ public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdap
         /*I: here we are passing references to the views created in ExampleViewHolder
         *    We first need information that we are going to assign to these views.
         *    In this case we get that information from Exaple Item (this will change to customer item)*/
-        ExampleItem tempItem = exList.get(position);
+        CustomerViewModel tempItem = exList.get(position);
         holder.imageView.setImageResource(tempItem.getImageSrc());
         holder.username.setText(tempItem.getName());
         holder.usertelephone.setText(tempItem.getTelephone());

@@ -69,7 +69,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:paddingLeft="80dp"
-            
+
             android:layout_toRightOf="@+id/customer_name_text_view_id"/>
 
         <TextView

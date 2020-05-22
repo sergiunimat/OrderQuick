@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
     public static final String CUSTOMER = "Customer";
     public static final String CUSTOMER_NAME = "CustomerName";
@@ -61,6 +63,8 @@ public class DBHelper extends SQLiteOpenHelper {
                         " WHERE " + CUSTOMER_TELEPHONE_NUMBER +
                         " = " + telephoneNumer;
         Cursor cursor = db.rawQuery(query,null);
+        cursor.close();
+        db.close();
         if(cursor.moveToFirst()){return true;}
         else {return false;}
     }
@@ -101,4 +105,79 @@ public class DBHelper extends SQLiteOpenHelper {
         if (i>=1){ return true; }
         else { return false;}
     }
+
+    /*I: get all customers from the database*/
+    public ArrayList<CustomerModel> GetAllCustomers(){
+        ArrayList<CustomerModel>customerModels = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM "+CUSTOMER+
+                        " Where "+CUSTOMER_ROLE + " = 3";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                int customerId= cursor.getInt(0);
+                String customerName = cursor.getString(1);
+                String customerPassword = cursor.getString(2);
+                String customerTelephone = cursor.getString(3);
+                int customerRoleId= cursor.getInt(4);
+                String customerWage = cursor.getString(5);
+                /*I: create a customer object*/
+                CustomerModel customerModel = new CustomerModel(
+                        customerId,
+                        customerName,
+                        customerPassword,
+                        customerTelephone,
+                        customerRoleId,
+                        customerWage);
+                /*I: add customer to the list*/
+                customerModels.add(customerModel);
+
+
+            }while (cursor.moveToNext());
+        }
+        else {
+            /*I: in case the array is empty, here logic can be inserted if needed.*/
+        }
+        cursor.close();
+        db.close();
+        return customerModels;
+    }
+
+    /*I: get all employees from the database*/
+    public ArrayList<CustomerModel> GetAllEmployees(){
+        ArrayList<CustomerModel>customerModels = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM "+CUSTOMER+
+                " Where "+CUSTOMER_ROLE + " = 2";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                int customerId= cursor.getInt(0);
+                String customerName = cursor.getString(1);
+                String customerPassword = cursor.getString(2);
+                String customerTelephone = cursor.getString(3);
+                int customerRoleId= cursor.getInt(4);
+                String customerWage = cursor.getString(5);
+                /*I: create a customer object*/
+                CustomerModel customerModel = new CustomerModel(
+                        customerId,
+                        customerName,
+                        customerPassword,
+                        customerTelephone,
+                        customerRoleId,
+                        customerWage);
+                /*I: add customer to the list*/
+                customerModels.add(customerModel);
+
+
+            }while (cursor.moveToNext());
+        }
+        else {
+            /*I: in case the array is empty, here logic can be inserted if needed.*/
+        }
+        cursor.close();
+        db.close();
+        return customerModels;
+    }
+
 }

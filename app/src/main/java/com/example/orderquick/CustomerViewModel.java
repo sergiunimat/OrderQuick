@@ -1,11 +1,11 @@
 package com.example.orderquick;
 
-public class ExampleItem {
+public class CustomerViewModel {
     private int imageSrc;
     private String name;
     private String telephone;
 
-    public ExampleItem(int imageSrc, String name, String telephone) {
+    public CustomerViewModel(int imageSrc, String name, String telephone) {
         this.imageSrc = imageSrc;
         this.name = name;
         this.telephone = telephone;
