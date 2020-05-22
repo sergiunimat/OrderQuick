@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp">
+
+        <ImageView
+            android:id="@+id/customer_image_view_id"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="2dp"/>
+        <TextView
+            android:id="@+id/namelbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/customer_image_view_id"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:text="Name: "/>
+
+        <TextView
+            android:id="@+id/customer_name_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Name"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:paddingTop="4dp"
+            android:layout_toRightOf="@+id/namelbl" />
+        <TextView
+            android:id="@+id/tellbl"
+            android:layout_below="@+id/namelbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/customer_image_view_id"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:text="Telephone Nr: "/>
+
+        <TextView
+            android:id="@+id/customer_telephone_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tellbl"
+            android:paddingTop="8dp"
+            android:textSize="15dp"
+            android:layout_below="@+id/customer_name_text_view_id"
+            android:text="775672345"
+             />
+
+        <TextView
+            android:id="@+id/orderlbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orders: "
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="80dp"
+            
+            android:layout_toRightOf="@+id/customer_name_text_view_id"/>
+
+        <TextView
+            android:id="@+id/customer_order_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/orderlbl"
+            android:paddingTop="4dp"
+            android:textSize="15dp"
+            android:text="99"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

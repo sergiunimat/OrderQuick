@@ -27,12 +27,12 @@
             android:id="@+id/admin_employee_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Employees" />
+            android:text="Customers" />
         <com.google.android.material.tabs.TabItem
             android:id="@+id/admin_customer_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Customers" />
+            android:text="Employees" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
