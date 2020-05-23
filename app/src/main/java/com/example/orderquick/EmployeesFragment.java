@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class EmployeesFragment extends Fragment {
     }
 
     private RecyclerView empRecycleView;
-    private RecyclerView.Adapter empAdapter;
+    private AdminEmployeAdapter empAdapter;
     private RecyclerView.LayoutManager empManager;
 
 
@@ -36,7 +37,7 @@ public class EmployeesFragment extends Fragment {
         DBHelper dbH = new DBHelper(container.getContext());
 
 
-        ArrayList<EmployeeViewModel>employeeViewModels = new ArrayList<>();
+        final ArrayList<EmployeeViewModel>employeeViewModels = new ArrayList<>();
         employeeViewModels.add(new EmployeeViewModel(R.drawable.user,1,"Sergiu","7777777","1000"));
         employeeViewModels.add(new EmployeeViewModel(R.drawable.user,12,"Graziella","7777777","1000"));
         employeeViewModels.add(new EmployeeViewModel(R.drawable.user,13,"Ricco","7777777","1000"));
@@ -49,6 +50,15 @@ public class EmployeesFragment extends Fragment {
 
         empRecycleView.setLayoutManager(empManager);
         empRecycleView.setAdapter(empAdapter);
+
+        empAdapter.setOnItemClickListener(new AdminEmployeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                /*I: here each click on each item is handled*/
+                EmployeeViewModel employeeViewModel = employeeViewModels.get(position);
+                Toast.makeText(view.getContext(),employeeViewModel.getEmpName() , Toast.LENGTH_SHORT).show();
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }

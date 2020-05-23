@@ -14,6 +14,18 @@ import java.util.ArrayList;
 public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapter.EmployeeViewHolder> {
 
     private ArrayList<EmployeeViewModel> employeeViewHolders;
+    private OnItemClickListener empListener;
+
+
+    /*I: create interface*/
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        /*I: this method is called into the employee fragment together with a listener*/
+        empListener=listener;
+    }
 
     public static class EmployeeViewHolder extends RecyclerView.ViewHolder{
         public ImageView empImgView;
@@ -21,12 +33,26 @@ public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapte
         public TextView empTel;
         public TextView empWage;
 
-        public EmployeeViewHolder(@NonNull View itemView) {
+        public EmployeeViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             empImgView = (ImageView)itemView.findViewById(R.id.employee_image_view_id);
             empName = (TextView)itemView.findViewById(R.id.employee_name_text_view_id);
             empTel = (TextView)itemView.findViewById(R.id.employee_telephone_text_view_id);
             empWage = (TextView)itemView.findViewById(R.id.employee_wage_text_view_id);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /*I: here we are passing the click to the fragment*/
+                    if (listener!=null){
+                        int position = getAdapterPosition();
+                        /*I: making sure that the position is valid*/
+                        if (position!=RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -40,7 +66,7 @@ public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapte
     public EmployeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         /*I: passing the layout*/
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.employee_item,parent,false);
-        EmployeeViewHolder employeeViewHolder = new EmployeeViewHolder(v);
+        EmployeeViewHolder employeeViewHolder = new EmployeeViewHolder(v,empListener);
         return employeeViewHolder;
     }
 
