@@ -42,7 +42,7 @@ public class AdminEditCustomerActivuty extends AppCompatActivity {
                 if (result){
                     Toast.makeText(AdminEditCustomerActivuty.this, "Customer ("+customerName+") was deleted!", Toast.LENGTH_SHORT).show();
                     Intent baseAdmin = new Intent(v.getContext(),MainAdminActivity.class);
-
+                    startActivity(baseAdmin);
                     finish();
                 }
                 else {

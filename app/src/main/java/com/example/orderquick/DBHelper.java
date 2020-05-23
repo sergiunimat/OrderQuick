@@ -41,6 +41,35 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public CustomerModel GetCustomerById(int customerId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        CustomerModel retCust = new CustomerModel();
+        String query = "SELECT * FROM "+CUSTOMER+" WHERE "+CUSTOMER_ID+" = "+customerId;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()){
+            do {
+                int custId= cursor.getInt(0);
+                String customerName = cursor.getString(1);
+                String customerPassword = cursor.getString(2);
+                String customerTelephone = cursor.getString(3);
+                int customerRoleId= cursor.getInt(4);
+                String customerWage = cursor.getString(5);
+                /*I: create a customer object*/
+                CustomerModel customerModel = new CustomerModel(
+                        custId,
+                        customerName,
+                        customerPassword,
+                        customerTelephone,
+                        customerRoleId,
+                        customerWage);
+                retCust=customerModel;
+            }while (cursor.moveToNext());
+        }else {/*I: code if there isnt any result*/}
+        cursor.close();
+        db.close();
+        return retCust;
+    }
+
     //add customer to database when register (default role.3)
     public boolean AddCustomerToDb(CustomerModel customerModel){
         SQLiteDatabase db =this.getWritableDatabase();
@@ -148,6 +177,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean DeleteCustomerByTelephoneNumber(String telephoneNumber){
         SQLiteDatabase db =this.getWritableDatabase();
         int result = db.delete(CUSTOMER, CUSTOMER_TELEPHONE_NUMBER + " = " + telephoneNumber, null);
+        db.close();
+        if (result>=1){return true;}
+        else {return false;}
+    }
+
+    public boolean DeleteCustomerById(int custId){
+        SQLiteDatabase db =this.getWritableDatabase();
+        int result = db.delete(CUSTOMER, CUSTOMER_ID + " = " + custId, null);
         db.close();
         if (result>=1){return true;}
         else {return false;}

@@ -1,6 +1,9 @@
 package com.example.orderquick;
 
-public class EmployeeViewModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class EmployeeViewModel implements Parcelable {
 
     private int imgSrc;
     private int empId;
@@ -17,6 +20,27 @@ public class EmployeeViewModel {
         this.emWage = emWage;
         this.deleteImgSrc = deleteImgSrc;
     }
+
+    protected EmployeeViewModel(Parcel in) {
+        imgSrc = in.readInt();
+        empId = in.readInt();
+        empName = in.readString();
+        empTel = in.readString();
+        emWage = in.readString();
+        deleteImgSrc = in.readInt();
+    }
+
+    public static final Creator<EmployeeViewModel> CREATOR = new Creator<EmployeeViewModel>() {
+        @Override
+        public EmployeeViewModel createFromParcel(Parcel in) {
+            return new EmployeeViewModel(in);
+        }
+
+        @Override
+        public EmployeeViewModel[] newArray(int size) {
+            return new EmployeeViewModel[size];
+        }
+    };
 
     public int getDeleteImgSrc() {
         return deleteImgSrc;
@@ -64,5 +88,21 @@ public class EmployeeViewModel {
 
     public void setEmWage(String emWage) {
         this.emWage = emWage;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(imgSrc);
+        dest.writeInt(empId);
+        dest.writeString(empName);
+        dest.writeString(empTel);
+        dest.writeString(emWage);
+        dest.writeInt(deleteImgSrc);
     }
 }

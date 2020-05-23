@@ -1,6 +1,7 @@
 package com.example.orderquick;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -31,17 +32,18 @@ public class EmployeesFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_employees, container, false);
         DBHelper dbH = new DBHelper(container.getContext());
 
 
         final ArrayList<EmployeeViewModel>employeeViewModels = new ArrayList<>();
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,1,"Sergiu","7777777","1000",R.drawable.delete));
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,12,"Graziella","7777777","1000",R.drawable.delete));
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,13,"Ricco","7777777","1000",R.drawable.delete));
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,14,"Mango","7777777","1000",R.drawable.delete));
+        ArrayList<CustomerModel> dbEmployees = dbH.GetAllEmployees();
+        for (CustomerModel employee:dbEmployees) {
+            EmployeeViewModel evm = new EmployeeViewModel(R.drawable.user3,employee.getCustomerId(),employee.getCustomerName(),employee.getTelephoneNumber(),employee.getWage(),R.drawable.delete);
+            employeeViewModels.add(evm);
+        }
 
 
         empRecycleView = (RecyclerView) view.findViewById(R.id.employee_customer_recycler_view_id);
@@ -57,13 +59,25 @@ public class EmployeesFragment extends Fragment {
                 /*I: here each click on each item is handled*/
                 EmployeeViewModel employeeViewModel = employeeViewModels.get(position);
                 Toast.makeText(view.getContext(),employeeViewModel.getEmpName() , Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(container.getContext(),AdminEditDeleteEmployee.class);
+                intent.putExtra("EmployeeViewModel",employeeViewModel);
+                startActivity(intent);
             }
 
             @Override
             public void onDeleteClick(int position) {
                 /*I: here we handle the direct delete button click*/
                 EmployeeViewModel employeeViewModel = employeeViewModels.get(position);
-                Toast.makeText(view.getContext(),"DELETE ("+employeeViewModel.getEmpName()+") !" , Toast.LENGTH_SHORT).show();
+                DBHelper dbH = new DBHelper(container.getContext());
+                boolean result = dbH.DeleteCustomerById(employeeViewModel.getEmpId());
+                if (result){
+                    Toast.makeText(view.getContext(),"Employee ("+employeeViewModel.getEmpName()+") is deleted !" , Toast.LENGTH_SHORT).show();
+                    empAdapter.notifyDataSetChanged();
+                }else {
+                    Toast.makeText(view.getContext(), "Employee could not be deleted", Toast.LENGTH_SHORT).show();
+                }
+                
             }
         });
         // Inflate the layout for this fragment

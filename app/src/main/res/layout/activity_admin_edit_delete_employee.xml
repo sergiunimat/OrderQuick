@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminEditDeleteEmployee">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:paddingTop="60dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="20dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/user3"/>
+    <!-- User name -->
+
+    <EditText
+        android:paddingTop="50dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/edit_employeid_id"
+        android:layout_above="@+id/edit_employeename_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="50dp"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:layout_marginRight="50dp"
+        android:text="User id"
+        android:inputType="textPersonName" />
+    <EditText
+        android:layout_centerVertical="true"
+        android:id="@+id/edit_employeename_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:hint="employee name"
+        android:inputType="textPersonName" />
+
+    <!-- User pass -->
+    <EditText
+        android:layout_below="@id/edit_employeetel_id"
+        android:id="@+id/edit_employeepassword_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="employee wage"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:inputType="text" />
+    <!-- User conf pass -->
+
+    <EditText
+        android:layout_below="@id/edit_employeename_id"
+        android:id="@+id/edit_employeetel_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:hint="employee tel. nr."
+        android:inputType="textPersonName" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/edit_employeepassword_id"
+        android:layout_centerHorizontal="true"
+        >
+
+        <Button
+            android:id="@+id/edit_employee_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" or "/>
+
+        <Button
+            android:id="@+id/del_employee_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
