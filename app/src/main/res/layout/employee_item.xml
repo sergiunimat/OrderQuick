@@ -20,6 +20,12 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="2dp"/>
+        <ImageView
+            android:id="@+id/employee_delete_image_view_id"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:padding="2dp"/>
         <TextView
             android:id="@+id/namelbl_employee"
             android:layout_width="wrap_content"
@@ -40,7 +46,7 @@
             android:textStyle="italic"
             android:paddingTop="4dp"
             android:paddingRight="10dp"
-            android:layout_alignParentRight="true" />
+            android:layout_toLeftOf="@+id/employee_delete_image_view_id" />
         <TextView
             android:id="@+id/tellbl_employee"
             android:layout_below="@+id/orderlbl_employee"
@@ -61,7 +67,7 @@
             android:textSize="15dp"
             android:layout_below="@+id/orderlbl_employee"
             android:text="775672345"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/employee_delete_image_view_id"
             android:paddingRight="10dp"
             />
 
@@ -83,10 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/namelbl_employee"
-            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
             android:paddingTop="4dp"
             android:textSize="15dp"
-            android:paddingRight="10dp"
+            android:layout_toLeftOf="@+id/employee_delete_image_view_id"
             android:text="1000"
             />
 

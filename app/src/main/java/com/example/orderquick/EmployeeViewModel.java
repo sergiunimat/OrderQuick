@@ -7,13 +7,23 @@ public class EmployeeViewModel {
     private String empName;
     private String empTel;
     private String emWage;
+    private int deleteImgSrc;
 
-    public EmployeeViewModel(int imgSrc, int empId, String empName, String empTel, String emWage) {
+    public EmployeeViewModel(int imgSrc, int empId, String empName, String empTel, String emWage,int deleteImgSrc) {
         this.imgSrc = imgSrc;
         this.empId = empId;
         this.empName = empName;
         this.empTel = empTel;
         this.emWage = emWage;
+        this.deleteImgSrc = deleteImgSrc;
+    }
+
+    public int getDeleteImgSrc() {
+        return deleteImgSrc;
+    }
+
+    public void setDeleteImgSrc(int deleteImgSrc) {
+        this.deleteImgSrc = deleteImgSrc;
     }
 
     public int getImgSrc() {

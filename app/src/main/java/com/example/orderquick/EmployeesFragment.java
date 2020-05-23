@@ -38,10 +38,10 @@ public class EmployeesFragment extends Fragment {
 
 
         final ArrayList<EmployeeViewModel>employeeViewModels = new ArrayList<>();
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,1,"Sergiu","7777777","1000"));
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,12,"Graziella","7777777","1000"));
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,13,"Ricco","7777777","1000"));
-        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,14,"Mango","7777777","1000"));
+        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,1,"Sergiu","7777777","1000",R.drawable.delete));
+        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,12,"Graziella","7777777","1000",R.drawable.delete));
+        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,13,"Ricco","7777777","1000",R.drawable.delete));
+        employeeViewModels.add(new EmployeeViewModel(R.drawable.user,14,"Mango","7777777","1000",R.drawable.delete));
 
 
         empRecycleView = (RecyclerView) view.findViewById(R.id.employee_customer_recycler_view_id);
@@ -57,6 +57,13 @@ public class EmployeesFragment extends Fragment {
                 /*I: here each click on each item is handled*/
                 EmployeeViewModel employeeViewModel = employeeViewModels.get(position);
                 Toast.makeText(view.getContext(),employeeViewModel.getEmpName() , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                /*I: here we handle the direct delete button click*/
+                EmployeeViewModel employeeViewModel = employeeViewModels.get(position);
+                Toast.makeText(view.getContext(),"DELETE ("+employeeViewModel.getEmpName()+") !" , Toast.LENGTH_SHORT).show();
             }
         });
         // Inflate the layout for this fragment

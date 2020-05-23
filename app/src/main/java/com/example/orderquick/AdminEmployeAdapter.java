@@ -20,6 +20,7 @@ public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapte
     /*I: create interface*/
     public interface OnItemClickListener{
         void onItemClick(int position);
+        void onDeleteClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -32,6 +33,7 @@ public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapte
         public TextView empName;
         public TextView empTel;
         public TextView empWage;
+        public ImageView empImgViewDelete;
 
         public EmployeeViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -39,6 +41,9 @@ public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapte
             empName = (TextView)itemView.findViewById(R.id.employee_name_text_view_id);
             empTel = (TextView)itemView.findViewById(R.id.employee_telephone_text_view_id);
             empWage = (TextView)itemView.findViewById(R.id.employee_wage_text_view_id);
+            empImgViewDelete = (ImageView)itemView.findViewById(R.id.employee_delete_image_view_id);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,6 +54,19 @@ public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapte
                         /*I: making sure that the position is valid*/
                         if (position!=RecyclerView.NO_POSITION){
                             listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            /*I: the button that allows the user to delete directly*/
+            empImgViewDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener!=null){
+                        int position = getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            listener.onDeleteClick(position);
                         }
                     }
                 }
@@ -77,6 +95,7 @@ public class AdminEmployeAdapter extends RecyclerView.Adapter<AdminEmployeAdapte
         holder.empName.setText(currentEmp.getEmpName());
         holder.empTel.setText(currentEmp.getEmpTel());
         holder.empWage.setText(currentEmp.getEmWage());
+        holder.empImgViewDelete.setImageResource(currentEmp.getDeleteImgSrc());
 
     }
 
