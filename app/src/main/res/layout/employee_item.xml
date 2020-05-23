@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <ImageView
+            android:id="@+id/employee_image_view_id"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="2dp"/>
+        <TextView
+            android:id="@+id/namelbl_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/employee_image_view_id"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:text="Name: "/>
+
+        <TextView
+            android:id="@+id/employee_name_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Employee Name"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:paddingTop="4dp"
+            android:paddingRight="10dp"
+            android:layout_alignParentRight="true" />
+        <TextView
+            android:id="@+id/tellbl_employee"
+            android:layout_below="@+id/orderlbl_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/employee_image_view_id"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:text="Telephone Nr: "/>
+
+        <TextView
+            android:id="@+id/employee_telephone_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:paddingTop="8dp"
+            android:textSize="15dp"
+            android:layout_below="@+id/orderlbl_employee"
+            android:text="775672345"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/orderlbl_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Euro/month: "
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/employee_image_view_id"
+            android:textStyle="bold"
+
+
+            android:layout_below="@+id/employee_name_text_view_id"/>
+
+        <TextView
+            android:id="@+id/employee_wage_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/namelbl_employee"
+            android:layout_alignParentRight="true"
+            android:paddingTop="4dp"
+            android:textSize="15dp"
+            android:paddingRight="10dp"
+            android:text="1000"
+            />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
