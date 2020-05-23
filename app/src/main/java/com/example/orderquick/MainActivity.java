@@ -69,7 +69,6 @@ public class MainActivity extends BaseAppClass {
                         }
                     }
                 }catch (Exception e){
-                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     Log.i("Info",e.toString());
                 }
             }

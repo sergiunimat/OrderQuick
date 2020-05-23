@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminAddEmployee">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/edUserRegName_addemployee"
+            android:id="@+id/imageView_addemployee"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/user3" />
+
+        <!-- User name -->
+        <EditText
+            android:layout_centerVertical="true"
+            android:id="@+id/edUserRegName_addemployee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:hint="Enter employee name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:layout_below="@id/edUserRegName_addemployee"
+            android:id="@+id/edUserRegTell_addemployee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:hint="Enter employee phone nr."
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:layout_centerVertical="true"
+            android:id="@+id/edUserWage_addemployee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_below="@+id/edUserRegTell_addemployee"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:hint="Enter employee wage/month"
+            android:inputType="textPersonName" />
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/edUserWage_addemployee"
+            android:layout_centerHorizontal="true"
+            >
+
+            <Button
+                android:id="@+id/registerBtn_addemployee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Employee"
+                />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,7 +38,7 @@ public class CustomerProfile extends BaseAppClass {
             public void onClick(View v) {
                 CustomerModel customerModel = new CustomerModel();
                 DBHelper dbh = new DBHelper(v.getContext());
-                customerModel.setRole(3);
+                customerModel.setRole(APPLICATION_CURRENT_USER.getRole());
                 customerModel.setPassword(edit_user_password.getText().toString());
                 customerModel.setTelephoneNumber(edit_user_tel.getText().toString());
                 customerModel.setCustomerName(edit_user_name.getText().toString());

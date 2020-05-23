@@ -36,7 +36,8 @@ public class MainAdminActivity extends BaseAppClass {
                 startActivity(profile);
                 return true;
             case R.id.admin_ad_employee_id:
-                Toast.makeText(this, "Still need to do it, similar to register - new indent", Toast.LENGTH_SHORT).show();
+                Intent addEmp = new Intent(this,AdminAddEmployee.class);
+                startActivity(addEmp);
                 return true;
             case R.id.admin_ad_meal_id:
                 Toast.makeText(this, "Add meal - This mifgt be the most challenging one ", Toast.LENGTH_SHORT).show();
