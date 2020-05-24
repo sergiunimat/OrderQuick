@@ -36,7 +36,7 @@ public class AdminAddMeal extends BaseAppClass {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_meal);
         /*I: db instance*/
-        DBHelper dbH = new DBHelper(this);
+        final DBHelper dbH = new DBHelper(this);
 
         /*I: init vars*/
         mealRadioGroup = (RadioGroup)findViewById(R.id.radbtngroup);
@@ -53,6 +53,15 @@ public class AdminAddMeal extends BaseAppClass {
             public void onClick(View v) {
                 int radioId =mealRadioGroup.getCheckedRadioButtonId();
                 findRadioButton(radioId);
+                /*I: HERE YOU NEED TO CHECK IF THE FIELDS ARE ALL FILLED IN!*/
+
+                MealModel newMeal = new MealModel(-1,
+                        mealName.getText().toString(),
+                        mealPrice.getText().toString(),
+                        mealDescription.getText().toString(),
+                        mealCategory,
+                        mealUriBitmap);
+                dbH.AddMealToDb(newMeal);
 
             }
         });

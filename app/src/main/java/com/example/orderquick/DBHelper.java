@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -19,12 +21,24 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CUSTOMER_ID = "CustomerId";
     public static final String CUSTOMER_WAGE = "CustomerWage";
 
+    public static final String MEAL = "Meal";
+    public static final String MEAL_NAME = "MealName";
+    public static final String MEAL_PRICE = "MealPrice";
+    public static final String MEAL_DESCRIPTION = "MealDescription";
+    public static final String MEAL_CATEGORY= "MealCategory";
+    public static final String MEAL_ID = "MealId";
+    public static final String MEAL_IMG = "MealImg";
+
+    private ByteArrayOutputStream byteArrayOutputStream;
+    private byte[] mealImgInByte;
+
     public DBHelper(@Nullable Context context) {
-        super(context, "db.TestDb", null, 1);
+        super(context, "db.TestDbb", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        /*I: create customer table*/
         String customerTable = "CREATE TABLE " + CUSTOMER + "" +
                 "(" + CUSTOMER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     CUSTOMER_NAME + " TEXT," +
@@ -33,6 +47,16 @@ public class DBHelper extends SQLiteOpenHelper {
                     CUSTOMER_ROLE + " INT,"+
                 CUSTOMER_WAGE +" TEXT)";
         db.execSQL(customerTable);
+
+        /*I: create meal table*/
+        String mealTable = "CREATE TABLE " + MEAL + "" +
+                "(" + MEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    MEAL_NAME + " TEXT," +
+                    MEAL_PRICE + " TEXT," +
+                    MEAL_DESCRIPTION + " TEXT," +
+                    MEAL_CATEGORY + " TEXT,"+
+                    MEAL_IMG +" BLOB)";
+        db.execSQL(mealTable);
 
     }
 
@@ -172,7 +196,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return customerModels;
     }
 
-
     /*I: delete user by unique telephone number*/
     public boolean DeleteCustomerByTelephoneNumber(String telephoneNumber){
         SQLiteDatabase db =this.getWritableDatabase();
@@ -225,6 +248,29 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return customerModels;
+    }
+
+    public boolean AddMealToDb(MealModel meal){
+        SQLiteDatabase db =this.getWritableDatabase();
+        Bitmap tempImg = meal.getMealImg();
+        byteArrayOutputStream=new ByteArrayOutputStream();
+
+        /*convert image to byte array*/
+        tempImg.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        mealImgInByte=byteArrayOutputStream.toByteArray();
+
+        /*I: add in to content values*/
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MEAL_NAME,meal.getMealName());
+        contentValues.put(MEAL_PRICE,meal.getMealPrice());
+        contentValues.put(MEAL_DESCRIPTION,meal.getMealDescription());
+        contentValues.put(MEAL_CATEGORY,meal.getMealCategory());
+        /*I: here we add the picture*/
+        contentValues.put(MEAL_IMG,mealImgInByte);
+        long insert = db.insert(MEAL, null, contentValues);
+        db.close();
+        if (insert>=1){ return true; }
+        else { return false;}
     }
 
 }
