@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminAddMeal">
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp">
+
+        <EditText
+            android:id="@+id/add_meal_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:hint="Enter meal name"/>
+
+        <EditText
+            android:id="@+id/add_meal_description_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/add_meal_name_id"
+            android:lines="5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="Enter meal description"/>
+
+        <EditText
+            android:id="@+id/add_meal_price_id"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:hint="Enter meal price"/>
+
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radbtngroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_layout"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/category_pizza_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pizza"/>
+        <RadioButton
+            android:id="@+id/category_pasta_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pasta"/>
+        <RadioButton
+            android:id="@+id/category_dessert_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dessert"/>
+        <RadioButton
+            android:id="@+id/category_vegetarian_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Vegetarian"/>
+
+    </RadioGroup>
+    <ImageButton
+        android:id="@+id/add_meal_picture_id"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/burger"
+        android:onClick="selectImage"
+        android:layout_below="@+id/radbtngroup"/>
+    <Button
+        android:id="@+id/add_meal_button_id"
+        android:layout_below="@+id/add_meal_picture_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Meal"/>
+
+
+</RelativeLayout>

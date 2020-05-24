@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminEditDeleteEmployee"></activity>
+        <activity android:name=".AdminAddMeal"></activity>
+        <activity android:name=".AdminEditDeleteEmployee" />
         <activity android:name=".EmployeeMainActivity" />
         <activity android:name=".AdminAddEmployee" />
         <activity android:name=".AdminEditCustomerActivuty" />

@@ -40,7 +40,8 @@ public class MainAdminActivity extends BaseAppClass {
                 startActivity(addEmp);
                 return true;
             case R.id.admin_ad_meal_id:
-                Toast.makeText(this, "Add meal - This mifgt be the most challenging one ", Toast.LENGTH_SHORT).show();
+                Intent newMeal = new Intent(this,AdminAddMeal.class);
+                startActivity(newMeal);
                 return true;
             case R.id.admin_logout_id:
                 APPLICATION_CURRENT_USER =null;
