@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import androidx.annotation.Nullable;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -271,6 +273,55 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         if (insert>=1){ return true; }
         else { return false;}
+    }
+
+    public ArrayList<MealModel> GetAllMeals(){
+        ArrayList<MealModel>mealModels = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + MEAL ;
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+
+                /*I: get the raw data from database*/
+                int mealId= cursor.getInt(0);
+                String mealName = cursor.getString(1);
+                String mealPrice = cursor.getString(2);
+                String mealDescription = cursor.getString(3);
+                String mealCategory = cursor.getString(4);
+                byte[] mealImg = cursor.getBlob(5);
+
+                /*I: Convert the img to Bitmap*/
+                Bitmap mealPic = BitmapFactory.decodeByteArray(mealImg,0,mealImg.length);
+
+                /*I: create a customer object*/
+                MealModel mealModel = new MealModel(
+                        mealId,
+                        mealName,
+                        mealPrice,
+                        mealDescription,
+                        mealCategory,
+                        mealPic);
+                /*I: add customer to the list*/
+                mealModels.add(mealModel);
+
+
+            }while (cursor.moveToNext());
+        }
+        else {
+            /*I: in case the array is empty, here logic can be inserted if needed.*/
+        }
+        cursor.close();
+        db.close();
+        return mealModels;
+    }
+
+    public boolean DeleteMealById(int mealId){
+        SQLiteDatabase db =this.getWritableDatabase();
+        int result = db.delete(MEAL, MEAL_ID + " = " + mealId, null);
+        db.close();
+        if (result>=1){return true;}
+        else {return false;}
     }
 
 }

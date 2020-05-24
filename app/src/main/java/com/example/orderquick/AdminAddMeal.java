@@ -61,7 +61,13 @@ public class AdminAddMeal extends BaseAppClass {
                         mealDescription.getText().toString(),
                         mealCategory,
                         mealUriBitmap);
-                dbH.AddMealToDb(newMeal);
+                boolean result = dbH.AddMealToDb(newMeal);
+                if (result){
+                    Toast.makeText(AdminAddMeal.this, "The ("+newMeal.getMealName()+") is added to database", Toast.LENGTH_SHORT).show();
+                    Intent main = new Intent(v.getContext(),MainAdminActivity.class);
+                    startActivity(main);
+                }
+
 
             }
         });

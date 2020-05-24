@@ -18,6 +18,7 @@ public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdap
     public interface OnItemClickListener{
         /*I: we pass the position which item we clicked*/
         void onItemClick(int position);
+        void onItemDelete(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -29,6 +30,8 @@ public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdap
         public ImageView imageView;
         public TextView username;
         public TextView usertelephone;
+        public ImageView imageViewDel;
+
 
         public ExampleViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             /*I: initialize the views here*/
@@ -36,6 +39,8 @@ public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdap
             imageView= (ImageView)itemView.findViewById(R.id.customer_image_view_id);
             username = (TextView)itemView.findViewById(R.id.customer_name_text_view_id);
             usertelephone = (TextView)itemView.findViewById(R.id.customer_telephone_text_view_id);
+            imageViewDel= (ImageView)itemView.findViewById(R.id.customer_delete_image_view_id);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -48,6 +53,19 @@ public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdap
                         }
                     }
 
+                }
+            });
+
+            imageViewDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener!=null){
+                        int position = getAdapterPosition();
+                        /*make sure the position is valid*/
+                        if (position != RecyclerView.NO_POSITION){
+                            listener.onItemDelete(position);
+                        }
+                    }
                 }
             });
         }

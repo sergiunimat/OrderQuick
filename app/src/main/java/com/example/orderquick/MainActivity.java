@@ -63,6 +63,8 @@ public class MainActivity extends BaseAppClass {
                             boolean check = dbHelper.AddCustomerToDb(customerModel);
                             if (check){
                                 Toast.makeText(MainActivity.this, "Customer added to database", Toast.LENGTH_SHORT).show();
+                                Intent login = new Intent(MainActivity.this,LogIn.class);
+                                startActivity(login);
                             }else {
                                 Toast.makeText(MainActivity.this, "error while adding customer to database.", Toast.LENGTH_SHORT).show();
                             }

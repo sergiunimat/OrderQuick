@@ -37,7 +37,7 @@ public class CustomersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_customers, container, false);
-        DBHelper dbH = new DBHelper(container.getContext());
+        final DBHelper dbH = new DBHelper(container.getContext());
         //this list will hold the elements we want to insert ino the fragment
         //get the list of users,for each user create a customer view model and add it to the array list.
 
@@ -66,6 +66,19 @@ public class CustomersFragment extends Fragment {
                 /*I: send object to the new intent - NOTE YOU MIGHT LIKE TO SEND THE ID TO!*/
                 editCustomer.putExtra("CustomerViewModel",customerViewModel);
                 startActivity(editCustomer);
+            }
+
+            @Override
+            public void onItemDelete(int position) {
+                /*I: here handle user when clicking on the item*/
+                CustomerViewModel customerViewModel = customerViewModels.get(position);
+                boolean result = dbH.DeleteCustomerByTelephoneNumber(customerViewModel.getTelephone());
+                if (result){
+                    Toast.makeText(view.getContext(), "Customer ("+customerViewModel.getName()+") has been deleted", Toast.LENGTH_SHORT).show();
+                    Intent back = new Intent(view.getContext(),MainAdminActivity.class);
+                    startActivity(back);
+                }
+                else {}
             }
         });
         // Inflate the layout for this fragment

@@ -73,7 +73,7 @@ public class EmployeesFragment extends Fragment {
                 boolean result = dbH.DeleteCustomerById(employeeViewModel.getEmpId());
                 if (result){
                     Toast.makeText(view.getContext(),"Employee ("+employeeViewModel.getEmpName()+") is deleted !" , Toast.LENGTH_SHORT).show();
-                    empAdapter.notifyDataSetChanged();
+                    empAdapter.notifyItemRemoved(position);
                 }else {
                     Toast.makeText(view.getContext(), "Employee could not be deleted", Toast.LENGTH_SHORT).show();
                 }

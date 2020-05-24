@@ -1,13 +1,21 @@
 package com.example.orderquick;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
@@ -15,17 +23,70 @@ import android.view.ViewGroup;
  */
 public class MealsFragment extends Fragment {
 
+    private RecyclerView mealRecyclerView;
+    private AdminMealAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public MealsFragment() {
         // Required empty public constructor
     }
 
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_meals, container, false);
+        final DBHelper dbH = new DBHelper(container.getContext());
+
+        /*
+        * NOTE, you need to be able to retrieve a MealModel object from the database
+        * - that means you need to decode the byte array into the database function
+        * - next create a Bitmap and then pass it to the new object.
+        * */
+
+
+            ArrayList<MealModel> listofmm = new ArrayList<>();
+            listofmm=dbH.GetAllMeals();
+            Bitmap tempImg = BitmapFactory.decodeResource(container.getResources(),R.drawable.burger);
+
+
+            mealRecyclerView = (RecyclerView)view.findViewById(R.id.meal_recycler_view_id);
+            layoutManager = new LinearLayoutManager(view.getContext());
+            adapter = new AdminMealAdapter(listofmm);
+            mealRecyclerView.setLayoutManager(layoutManager);
+            mealRecyclerView.setAdapter(adapter);
+
+        final ArrayList<MealModel> finalListofmm = listofmm;
+        adapter.setOnItemClickListener(new AdminMealAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    /*I: handle click on item*/
+                    MealModel mm =finalListofmm.get(position);
+                    Toast.makeText(container.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
+                }
+
+            @Override
+            public void onDeleteClick(int position) {
+                /*I: here handle delete meal directly*/
+                /*I: get current item then delete it by id.*/
+                MealModel mm =finalListofmm.get(position);
+                boolean result = dbH.DeleteMealById(mm.getMealId());
+                if (result){
+                    Toast.makeText(view.getContext(), "The ("+mm.getMealName()+") successfully deleted ", Toast.LENGTH_SHORT).show();
+                    adapter.notifyItemRemoved(position);
+                }
+                else {
+                    Toast.makeText(view.getContext(), "The ("+mm.getMealName()+") was not deleted ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meals, container, false);
+        return view;
     }
 
 }

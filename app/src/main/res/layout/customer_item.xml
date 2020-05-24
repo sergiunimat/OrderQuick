@@ -18,6 +18,15 @@
             android:id="@+id/customer_image_view_id"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:padding="2dp"/>
+        <ImageView
+            android:id="@+id/customer_delete_image_view_id"
+            android:layout_width="60dp"
+            android:src="@drawable/delete"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:padding="2dp"/>
         <TextView
             android:id="@+id/namelbl"
@@ -68,7 +77,10 @@
             android:text="Orders: "
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingLeft="80dp"
+            android:paddingLeft="10dp"
+            android:layout_toRightOf="@+id/customer_image_view_id"
+            android:layout_below="@+id/tellbl"/>
+
 
             android:layout_toRightOf="@+id/customer_name_text_view_id"/>
 
@@ -77,8 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/orderlbl"
+            android:layout_below="@+id/tellbl"
             android:paddingTop="4dp"
             android:textSize="15dp"
+            android:paddingLeft="10dp"
             android:text="99"
             />
 
