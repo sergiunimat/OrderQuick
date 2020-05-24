@@ -48,7 +48,7 @@ public class MealsFragment extends Fragment {
 
             ArrayList<MealModel> listofmm = new ArrayList<>();
             listofmm=dbH.GetAllMeals();
-            Bitmap tempImg = BitmapFactory.decodeResource(container.getResources(),R.drawable.burger);
+
 
 
             mealRecyclerView = (RecyclerView)view.findViewById(R.id.meal_recycler_view_id);

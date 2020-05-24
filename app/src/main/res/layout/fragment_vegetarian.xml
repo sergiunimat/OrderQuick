@@ -5,10 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".VegetarianFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/vegetarian_meal_list_relative_layout_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vegetarian_meal_recycler_view_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:scrollbars="vertical"
+            android:background="@android:color/darker_gray"/>
+
+
+
+    </RelativeLayout>
 
 </FrameLayout>
