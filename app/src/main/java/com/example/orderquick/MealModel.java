@@ -11,6 +11,9 @@ public class MealModel {
     private String MealCategory;
     private Bitmap mealImg;
 
+    public MealModel() {
+    }
+
     public MealModel(int mealId, String mealName, String mealPrice, String mealDescription, String mealCategory, Bitmap mealImg) {
         MealId = mealId;
         MealName = mealName;

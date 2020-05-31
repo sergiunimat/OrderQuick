@@ -488,4 +488,40 @@ public class DBHelper extends SQLiteOpenHelper {
         else {return false;}
     }
 
+    public MealModel GetMealById(int mealID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + MEAL + " WHERE " + MEAL_ID + " = " + mealID;
+        Cursor cursor = db.rawQuery(query,null);
+        MealModel mealModel = new MealModel();
+        if (cursor.moveToFirst()){
+            do {
+                /*I: get the raw data from database*/
+                int mealId= cursor.getInt(0);
+                String mealName = cursor.getString(1);
+                String mealPrice = cursor.getString(2);
+                String mealDescription = cursor.getString(3);
+                String mealCategory = cursor.getString(4);
+                byte[] mealImg = cursor.getBlob(5);
+
+                /*I: Convert the img to Bitmap*/
+                Bitmap mealPic = BitmapFactory.decodeByteArray(mealImg,0,mealImg.length);
+
+                /*I: create a customer object*/
+                mealModel = new MealModel(
+                        mealId,
+                        mealName,
+                        mealPrice,
+                        mealDescription,
+                        mealCategory,
+                        mealPic);
+            }while (cursor.moveToNext());
+        }
+        else {
+            /*I: in case the array is empty, here logic can be inserted if needed.*/
+        }
+        cursor.close();
+        db.close();
+        return mealModel;
+    }
+
 }

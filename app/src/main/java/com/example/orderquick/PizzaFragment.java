@@ -1,6 +1,7 @@
 package com.example.orderquick;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class PizzaFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_pizza, container, false);
         final DBHelper dbH = new DBHelper(container.getContext());
@@ -57,6 +58,11 @@ public class PizzaFragment extends Fragment {
                 /*I: code to open the meal activity you should pass the model to the intent*/
                 MealModel mm = finalListofmm.get(position);
                 Toast.makeText(view.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
+                /*I: besides rendering the user to a new activity,
+                * we are also passing the meal id by which the meal can be queried from SQLite*/
+                Intent pIntent = new Intent(container.getContext(),CustomerMealActivity.class);
+                pIntent.putExtra("MEAL_ID",mm.getMealId());
+                startActivity(pIntent);
             }
 
             @Override
