@@ -1,6 +1,7 @@
 package com.example.orderquick;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -64,6 +65,11 @@ public class MealsFragment extends Fragment {
                     /*I: handle click on item*/
                     MealModel mm =finalListofmm.get(position);
                     Toast.makeText(container.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
+                    /*I: besides rendering the user to a new activity,
+                     * we are also passing the meal id by which the meal can be queried from SQLite*/
+                    Intent pIntent = new Intent(container.getContext(),AdminMealActivity.class);
+                    pIntent.putExtra("MEAL_ID",mm.getMealId());
+                    startActivity(pIntent);
                 }
 
             @Override
