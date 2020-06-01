@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,7 @@ public class CustomerMealActivity extends BaseAppClass {
         * the object contains the Bitmap which is a large property.
         * it took me several hours to understand that large objects CAN NOT be
         * transferred from one activity/fragment to another.*/
-        MealModel mealModel = dbH.GetMealById(mId);
+        final MealModel mealModel = dbH.GetMealById(mId);
 
         /*I: init the layout of the activity*/
         ImageView mImg = (ImageView)findViewById(R.id.customer_meal_id);
@@ -61,6 +62,17 @@ public class CustomerMealActivity extends BaseAppClass {
                     trolleyBadgeCounter=vv.findViewById(R.id.trolley_badge_counter);
                     trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
                     /*I: end of the notification section*/
+
+                    /*I: add the meal to the ArrayList that holds the meals for a particular order.*/
+                    ORDER_LIST.add(mealModel);
+                    /*I: these logs are for developing purposes only, user has no access to them.*/
+                    Log.i("Added Meal -->",mealModel.getMealName());
+                    Log.i("Order List size -->",String.valueOf( ORDER_LIST.size()));
+
+                    /*I: after the user adds the meal to the list he/she is rendered back to customer main activity*/
+                    Intent mAc = new Intent(CustomerMealActivity.this,MainCustomerView.class);
+                    startActivity(mAc);
+                    /*I: note, the user is allows to go back to this view by using back arrow.*/
 
                 Toast.makeText(CustomerMealActivity.this, "added to order", Toast.LENGTH_SHORT).show();
             }
