@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabItem;
@@ -21,6 +23,9 @@ public class MainCustomerView extends BaseAppClass {
     private ViewPager viewPager;
     private TabItem pizza,pasta,desserts,vegetarian;
     public PagerAdapter pagerAdapter;
+    /*I: Trolley-notification vars*/
+    MenuItem menuItem;
+    TextView trolleyBadgeCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,19 @@ public class MainCustomerView extends BaseAppClass {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater i = getMenuInflater();
         i.inflate(R.menu.custommer_menu,menu);
+        /*I: logic for the trolley-notification*/
+        menuItem = menu.findItem(R.id.trolley_icon_menu_id);
+        if (TROLLEY_NOTIFICATION==0){
+            /*I: since there is no notification, there is no need to show the badger*/
+            menuItem.setActionView(null);
+        }else {
+            /*I: set the action view*/
+            menuItem.setActionView(R.layout.trolly_notification_badge_layout);
+            /*I: set text view to show the notification account*/
+            View v = menuItem.getActionView();
+            trolleyBadgeCounter=v.findViewById(R.id.trolley_badge_counter);
+            trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
+        }
         return true;
     }
 
