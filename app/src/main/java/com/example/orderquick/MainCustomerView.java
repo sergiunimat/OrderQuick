@@ -69,21 +69,28 @@ public class MainCustomerView extends BaseAppClass {
     /*I: Function to inflate the customer menu for the user.*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater i = getMenuInflater();
-        i.inflate(R.menu.custommer_menu,menu);
-        /*I: logic for the trolley-notification*/
-        menuItem = menu.findItem(R.id.trolley_icon_menu_id);
-        if (TROLLEY_NOTIFICATION==0){
-            /*I: since there is no notification, there is no need to show the badger*/
-            menuItem.setActionView(null);
-        }else {
-            /*I: set the action view*/
-            menuItem.setActionView(R.layout.trolly_notification_badge_layout);
-            /*I: set text view to show the notification account*/
-            View v = menuItem.getActionView();
-            trolleyBadgeCounter=v.findViewById(R.id.trolley_badge_counter);
-            trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
-        }
+//        MenuInflater i = getMenuInflater();
+        //i.inflate(R.menu.custommer_menu,menu);
+//        /*I: logic for the trolley-notification*/
+//        menuItem = menu.findItem(R.id.trolley_icon_menu_id);
+//        if (TROLLEY_NOTIFICATION==0){
+//            /*I: since there is no notification, there is no need to show the badger*/
+//            menuItem.setActionView(null);
+//        }else {
+//            /*I: set the action view*/
+//            menuItem.setActionView(R.layout.trolly_notification_badge_layout);
+//            /*I: set text view to show the notification account*/
+//            View v = menuItem.getActionView();
+//            trolleyBadgeCounter=v.findViewById(R.id.trolley_badge_counter);
+//            trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
+//        }
+
+        /*I: note on how to inflate menu when there are both fragments and activity:
+        *    - This method will serve the fragments - in the fragments the same method
+        *      will be overwritten. Inside of the fragment the actual menu items are inflated
+        *    - As a conclusion, if the menu will change at running time, a good approach is to
+        *      inflate the menu from the fragment.
+        * */
         return true;
     }
 
@@ -91,6 +98,10 @@ public class MainCustomerView extends BaseAppClass {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.trolley_icon_menu_id:
+                Intent orderList = new Intent(this,CustomerOrderListActivity.class);
+                startActivity(orderList);
+                return true;
             case R.id.customer_profile_id:
                 Intent profile = new Intent(this,CustomerProfile.class);
                 startActivity(profile);
@@ -101,6 +112,10 @@ public class MainCustomerView extends BaseAppClass {
             case R.id.customer_logout_id:
                 //set the current user to null and redirect to login
                 APPLICATION_CURRENT_USER =null;
+                /*I: re-set the trolley notifications*/
+                TROLLEY_NOTIFICATION=0;
+                /*I: empty the list of orders*/
+                ORDER_LIST.clear();
                 Intent login = new Intent(this,LogIn.class);
                 startActivity(login);
                 //deny user to go back to previous activity once is logged out.
