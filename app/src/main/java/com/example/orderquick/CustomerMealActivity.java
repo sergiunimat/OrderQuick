@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CustomerMealActivity extends BaseAppClass {
+
+    MenuItem menuItem;
+    TextView trolleyBadgeCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +51,41 @@ public class CustomerMealActivity extends BaseAppClass {
             @Override
             public void onClick(View v) {
                 /*I: add the item to the order array */
+
+                    /*I: when the user adds an element to the order list,
+                    *    the notifications increments by one the screen.*/
+                    TROLLEY_NOTIFICATION++;
+                    menuItem.setActionView(R.layout.trolly_notification_badge_layout);
+                    /*I: set text view to show the notification account*/
+                    View vv = menuItem.getActionView();
+                    trolleyBadgeCounter=vv.findViewById(R.id.trolley_badge_counter);
+                    trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
+                    /*I: end of the notification section*/
+
                 Toast.makeText(CustomerMealActivity.this, "added to order", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    /*I: this method is responsible to render the menu on the app-header.
+    *    Furthermore, here the are the base setups for the trolley notification (i.e. when there are meals in order.)*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.custommer_menu,menu);
+        menuItem = menu.findItem(R.id.trolley_icon_menu_id);
+
+        if (TROLLEY_NOTIFICATION==0){
+            /*I: since there is no notification, there is no need to show the badger*/
+            menuItem.setActionView(null);
+        }else {
+            /*I: set the action view*/
+            menuItem.setActionView(R.layout.trolly_notification_badge_layout);
+            /*I: set text view to show the notification account*/
+            View v = menuItem.getActionView();
+            trolleyBadgeCounter=v.findViewById(R.id.trolley_badge_counter);
+            trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 }

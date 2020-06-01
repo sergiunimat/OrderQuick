@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/trolley_icon_menu_id"
+        android:title="title"
+        android:icon="@drawable/shoptrolley"
+        app:showAsAction="always"
+        android:actionLayout="@layout/trolly_notification_badge_layout"/>
 
 
     <item
