@@ -31,11 +31,19 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String MEAL_ID = "MealId";
     public static final String MEAL_IMG = "MealImg";
 
+    public static final String ORDERS = "Orders";
+    public static final String ORDER_ID = "OrderId";
+    public static final String ORDER_CUSTOMER_ID = "OrderCustomerId";
+    public static final String ORDER_LIST = "OrderList";
+    public static final String PENDING = "Pending";
+    public static final String SEEN = "Seen";
+
+
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] mealImgInByte;
 
     public DBHelper(@Nullable Context context) {
-        super(context, "db.TestDbb", null, 1);
+        super(context, "db.TestDbbBBB", null, 1);
     }
 
     @Override
@@ -50,6 +58,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 CUSTOMER_WAGE +" TEXT)";
         db.execSQL(customerTable);
 
+        /*I: create power-user admin*/
+        String powerUser = "INSERT INTO "+CUSTOMER+" ("+
+                CUSTOMER_NAME+", "+
+                CUSTOMER_PASSWORD+", "+
+                CUSTOMER_TELEPHONE_NUMBER+", "+
+                CUSTOMER_ROLE+") VALUES ('admin','admin','1234567', 0)";
+        db.execSQL(powerUser);
+
         /*I: create meal table*/
         String mealTable = "CREATE TABLE " + MEAL + "" +
                 "(" + MEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -60,6 +76,14 @@ public class DBHelper extends SQLiteOpenHelper {
                     MEAL_IMG +" BLOB)";
         db.execSQL(mealTable);
 
+        /*I: create order table*/
+        String orderTable = "CREATE TABLE  " + ORDERS + " " +
+                "(" + ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ORDER_CUSTOMER_ID + " INTEGER," +
+                ORDER_LIST + " TEXT," +
+                PENDING + " INTEGER," +
+                SEEN + " INTEGER)";
+        db.execSQL(orderTable);
     }
 
     @Override
@@ -522,6 +546,80 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return mealModel;
+    }
+
+    /*I: requires testing!*/
+    public boolean AddOrderToDb(OrderModel orderModel){
+        SQLiteDatabase db =this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ORDER_CUSTOMER_ID,orderModel.getCustomerId());
+        contentValues.put(ORDER_LIST,orderModel.getCustomerId());
+        contentValues.put(PENDING,orderModel.getCustomerId());
+        contentValues.put(SEEN,orderModel.getCustomerId());
+        long insert = db.insert(ORDERS, null, contentValues);
+        db.close();
+        if (insert>=1){ return true; }
+        else { return false;}
+    }
+
+    /*I: requires testing!*/
+    public ArrayList<OrderModel> GetOrderList(){
+        ArrayList<OrderModel>orderList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM "+ORDERS;
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                int orderId= cursor.getInt(0);
+                int customerId = cursor.getInt(1);
+                String ordersList = cursor.getString(2);
+                int pending = cursor.getInt(3);
+                int seen= cursor.getInt(4);
+                /*I: create a Order object*/
+                OrderModel orderModel = new OrderModel(orderId,customerId,ordersList,pending,seen);
+                /*I: add order to the list*/
+                orderList.add(orderModel);
+
+
+            }while (cursor.moveToNext());
+        }
+        else {
+            /*I: in case the array is empty, here logic can be inserted if needed.*/
+        }
+        cursor.close();
+        db.close();
+        return orderList;
+
+    }
+
+    /*I: requires testing!*/
+    public ArrayList<OrderModel> GetOrderListByCustomerId(int cId){
+        ArrayList<OrderModel>orderList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM "+ORDERS+" WHERE "+ORDER_CUSTOMER_ID+" = "+cId;
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                int orderId= cursor.getInt(0);
+                int customerId = cursor.getInt(1);
+                String ordersList = cursor.getString(2);
+                int pending = cursor.getInt(3);
+                int seen= cursor.getInt(4);
+                /*I: create a Order object*/
+                OrderModel orderModel = new OrderModel(orderId,customerId,ordersList,pending,seen);
+                /*I: add order to the list*/
+                orderList.add(orderModel);
+
+
+            }while (cursor.moveToNext());
+        }
+        else {
+            /*I: in case the array is empty, here logic can be inserted if needed.*/
+        }
+        cursor.close();
+        db.close();
+        return orderList;
+
     }
 
 }
