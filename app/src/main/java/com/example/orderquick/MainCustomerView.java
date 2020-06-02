@@ -98,7 +98,7 @@ public class MainCustomerView extends BaseAppClass {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.trolley_icon_menu_id:
+            case R.id.customer_all_orders_id :
                 Intent orderList = new Intent(this,CustomerOrderListActivity.class);
                 startActivity(orderList);
                 return true;

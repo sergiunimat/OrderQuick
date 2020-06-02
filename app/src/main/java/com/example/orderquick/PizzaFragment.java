@@ -1,6 +1,7 @@
 package com.example.orderquick;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -112,6 +113,7 @@ public class PizzaFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.custommer_menu,menu);
@@ -122,10 +124,15 @@ public class PizzaFragment extends Fragment {
         }else {
             /*I: set the action view*/
             menuItem.setActionView(R.layout.trolly_notification_badge_layout);
+
             /*I: set text view to show the notification account*/
             View v = menuItem.getActionView();
             trolleyBadgeCounter=v.findViewById(R.id.trolley_badge_counter);
             trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
+
+
+
+
         }
         super.onCreateOptionsMenu(menu, inflater);
     }

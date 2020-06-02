@@ -12,4 +12,7 @@ public class BaseAppClass  extends AppCompatActivity {
     public static int TROLLEY_NOTIFICATION = 0;
     /*I: This array list contains the meals added to to the order.*/
     public static ArrayList<MealModel> ORDER_LIST=new ArrayList<>();
+
+    public static int ORDER_TOTAL=0;
+
 }

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <item
         android:id="@+id/trolley_icon_menu_id"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:focusableInTouchMode="true"
         android:title="title"
         android:icon="@drawable/shoptrolley"
         app:showAsAction="always"
@@ -13,6 +20,10 @@
     <item
         android:id="@+id/customer_profile_id"
         android:title="Profile"/>
+
+    <item
+        android:id="@+id/customer_all_orders_id"
+        android:title="Check Out"/>
 
     <item
         android:id="@+id/customer_orders_id"
