@@ -72,7 +72,7 @@ public class PizzaFragment extends Fragment {
             public void onItemClick(int position) {
                 /*I: code to open the meal activity you should pass the model to the intent*/
                 MealModel mm = finalListofmm.get(position);
-                Toast.makeText(view.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
                 /*I: besides rendering the user to a new activity,
                 * we are also passing the meal id by which the meal can be queried from SQLite*/
                 Intent pIntent = new Intent(container.getContext(),CustomerMealActivity.class);
@@ -129,9 +129,6 @@ public class PizzaFragment extends Fragment {
             View v = menuItem.getActionView();
             trolleyBadgeCounter=v.findViewById(R.id.trolley_badge_counter);
             trolleyBadgeCounter.setText(String.valueOf(TROLLEY_NOTIFICATION));
-
-
-
 
         }
         super.onCreateOptionsMenu(menu, inflater);
