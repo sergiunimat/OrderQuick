@@ -15,4 +15,20 @@ public class BaseAppClass  extends AppCompatActivity {
 
     public static int ORDER_TOTAL=0;
 
+
+    public static String MealIdsToString(ArrayList<MealModel> array) {
+        String result = "";
+        if (array.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (MealModel s : array){
+
+                    sb.append(s.getMealId()).append(",");
+            }
+                result = sb.deleteCharAt(sb.length() - 1).toString();
+            }
+        return result;
+    }
+
+
+
 }

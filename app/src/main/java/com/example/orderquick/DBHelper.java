@@ -553,9 +553,9 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ORDER_CUSTOMER_ID,orderModel.getCustomerId());
-        contentValues.put(ORDER_LIST,orderModel.getCustomerId());
-        contentValues.put(PENDING,orderModel.getCustomerId());
-        contentValues.put(SEEN,orderModel.getCustomerId());
+        contentValues.put(ORDER_LIST,orderModel.getOrderList());
+        contentValues.put(PENDING,orderModel.getPending());
+        contentValues.put(SEEN,orderModel.getSeen());
         long insert = db.insert(ORDERS, null, contentValues);
         db.close();
         if (insert>=1){ return true; }
