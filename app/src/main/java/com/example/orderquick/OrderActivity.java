@@ -1,5 +1,6 @@
 package com.example.orderquick;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,7 +83,7 @@ public class OrderActivity extends AppCompatActivity {
             oId.setText(orderId);
             oCname.setText(customerName);
             oTotPrice.setText("€: "+totalPrice);
-           oCusTel.setText("Tel: "+customerTel);
+            oCusTel.setText("Tel: "+customerTel);
             layoutManager = new LinearLayoutManager(this);
             adapter = new EmployeeMealAdapter(listOfMeals);
             mealRecyclerView.setLayoutManager(layoutManager);
@@ -114,9 +118,27 @@ public class OrderActivity extends AppCompatActivity {
 //                adapter.notifyItemRangeChanged(position,ORDER_LIST.size());
 //                total.setText("€ "+ ORDER_TOTAL);
 
-
-                Toast.makeText(OrderActivity.this, "Delete stuff ("+mm.getMealName()+"", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.employee_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.employee_logout_id:
+                Intent login = new Intent(OrderActivity.this,LogIn.class);
+                startActivity(login);
+                finish();
+                return true;
+            default:return false;
+        }
+
     }
 }

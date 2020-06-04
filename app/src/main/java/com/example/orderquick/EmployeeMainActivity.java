@@ -1,11 +1,15 @@
 package com.example.orderquick;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,7 +30,7 @@ public class EmployeeMainActivity extends BaseAppClass {
             startActivity(redirect);
         }
         {
-            final ArrayList<OrderModel> orm = dbH.GetOrderList();
+            final ArrayList<OrderModel> orm = dbH.GetPendingOrderList();
             recyclerView=findViewById(R.id.orders_recyclerview);
             recyclerView.setHasFixedSize(true);
             manager= new LinearLayoutManager(this);
@@ -45,5 +49,25 @@ public class EmployeeMainActivity extends BaseAppClass {
             });
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.employee_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.employee_logout_id:
+                Intent login = new Intent(this,LogIn.class);
+                startActivity(login);
+                finish();
+                return true;
+            default:return false;
+        }
+
     }
 }

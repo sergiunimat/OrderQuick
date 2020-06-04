@@ -592,6 +592,34 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList<OrderModel> GetPendingOrderList(){
+        ArrayList<OrderModel>orderList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM "+ORDERS+" WHERE "+PENDING +" = "+ 1;
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                int orderId= cursor.getInt(0);
+                int customerId = cursor.getInt(1);
+                String ordersList = cursor.getString(2);
+                int pending = cursor.getInt(3);
+                int seen= cursor.getInt(4);
+                /*I: create a Order object*/
+                OrderModel orderModel = new OrderModel(orderId,customerId,ordersList,pending,seen);
+                /*I: add order to the list*/
+                orderList.add(orderModel);
+
+
+            }while (cursor.moveToNext());
+        }
+        else {
+            /*I: in case the array is empty, here logic can be inserted if needed.*/
+        }
+        cursor.close();
+        db.close();
+        return orderList;
+    }
+
     /*I: requires testing!*/
     public ArrayList<OrderModel> GetOrderListByCustomerId(int cId){
         ArrayList<OrderModel>orderList = new ArrayList<>();
