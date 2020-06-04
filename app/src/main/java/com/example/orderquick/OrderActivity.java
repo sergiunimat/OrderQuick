@@ -1,6 +1,8 @@
 package com.example.orderquick;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +15,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.orderquick.BaseAppClass.ORDER_LIST;
+
 public class OrderActivity extends AppCompatActivity {
     private TextView oId;
     private TextView oCname;
     private TextView oTotPrice;
+
+    /*I: add necessary reference to us the recycler view.*/
+    private RecyclerView mealRecyclerView;
+    private AdminMealAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private TextView total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +63,7 @@ public class OrderActivity extends AppCompatActivity {
         String customerName = String.valueOf(tempCus.getCustomerName());
         String totalPrice = String.valueOf(totalAmount);
 
-
+        mealRecyclerView = (RecyclerView)findViewById(R.id.orderrecyclerview);
         oId=findViewById(R.id.orderidtext);
         oCname = findViewById(R.id.ordercustomername);
         oTotPrice =findViewById(R.id.orderprice);
@@ -63,6 +73,10 @@ public class OrderActivity extends AppCompatActivity {
             oId.setText(orderId);
             oCname.setText(customerName);
             oTotPrice.setText("€: "+totalPrice);
+            layoutManager = new LinearLayoutManager(this);
+            adapter = new AdminMealAdapter(listOfMeals);
+            mealRecyclerView.setLayoutManager(layoutManager);
+            mealRecyclerView.setAdapter(adapter);
 
         }catch (Exception e){
             Log.i("ERROR-->",e.toString());
