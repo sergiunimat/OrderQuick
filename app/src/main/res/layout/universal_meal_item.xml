@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="5dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:id="@+id/meal_image_view_id"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:padding="2dp"/>
+        <ImageView
+            android:id="@+id/meal_delete_image_view_id"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/details"
+            android:layout_centerVertical="true"
+            android:padding="2dp"/>
+        <TextView
+            android:id="@+id/namelbl_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/meal_image_view_id"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:text="Name: "/>
+
+        <TextView
+            android:id="@+id/meal_name_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meal Name"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:paddingTop="4dp"
+            android:paddingRight="10dp"
+            android:layout_toLeftOf="@+id/meal_delete_image_view_id" />
+        <TextView
+            android:id="@+id/tellbl_meal"
+            android:layout_below="@+id/orderlbl_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/meal_image_view_id"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:text="Price (euro) : "/>
+
+        <TextView
+            android:id="@+id/meal_telephone_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:paddingTop="8dp"
+            android:textSize="15dp"
+            android:layout_below="@+id/orderlbl_meal"
+            android:text="10"
+            android:layout_toLeftOf="@+id/meal_delete_image_view_id"
+            android:paddingRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/orderlbl_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category: "
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/meal_image_view_id"
+            android:textStyle="bold"
+
+
+            android:layout_below="@+id/meal_name_text_view_id"/>
+
+        <TextView
+            android:id="@+id/meal_wage_text_view_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/namelbl_meal"
+            android:layout_toLeftOf="@+id/meal_delete_image_view_id"
+            android:paddingTop="4dp"
+            android:paddingRight="10dp"
+            android:text="meal category"
+            android:textSize="15dp" />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

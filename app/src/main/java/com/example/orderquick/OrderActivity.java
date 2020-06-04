@@ -23,10 +23,11 @@ public class OrderActivity extends AppCompatActivity {
     private TextView oId;
     private TextView oCname;
     private TextView oTotPrice;
+    private TextView oCusTel;
 
     /*I: add necessary reference to us the recycler view.*/
     private RecyclerView mealRecyclerView;
-    private AdminMealAdapter adapter;
+    private EmployeeMealAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private TextView total;
 
@@ -63,20 +64,24 @@ public class OrderActivity extends AppCompatActivity {
         /*I: set the order id*/
         String orderId = String.valueOf(orderModel.getCustomerId());
         String customerName = String.valueOf(tempCus.getCustomerName());
+        String customerTel = String.valueOf(tempCus.getTelephoneNumber());
         String totalPrice = String.valueOf(totalAmount);
 
         mealRecyclerView = (RecyclerView)findViewById(R.id.orderrecyclerview);
         oId=findViewById(R.id.orderidtext);
         oCname = findViewById(R.id.ordercustomername);
         oTotPrice =findViewById(R.id.orderprice);
+//        oCusTel=findViewById(R.id.ordercustometel);
+
         /*WE ALSO HAVE THE LIST*/
 
         try {
             oId.setText(orderId);
             oCname.setText(customerName);
             oTotPrice.setText("€: "+totalPrice);
+//            oCusTel.setText("Tel: "+customerTel);
             layoutManager = new LinearLayoutManager(this);
-            adapter = new AdminMealAdapter(listOfMeals);
+            adapter = new EmployeeMealAdapter(listOfMeals);
             mealRecyclerView.setLayoutManager(layoutManager);
             mealRecyclerView.setAdapter(adapter);
 
@@ -86,7 +91,7 @@ public class OrderActivity extends AppCompatActivity {
             Log.i("ERROR-->",e.toString());
         }
 
-        adapter.setOnItemClickListener(new AdminMealAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new EmployeeMealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 /*I: code to open the meal activity you should pass the model to the intent*/
@@ -102,13 +107,12 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onDeleteClick(int position) {
                 /*I: element at current position*/
-                MealModel mm =ORDER_LIST.get(position);
-                ORDER_TOTAL = ORDER_TOTAL-Integer.parseInt(mm.getMealPrice());
-                TROLLEY_NOTIFICATION--;
-                ORDER_LIST.remove(position);
-                adapter.notifyItemRemoved(position);
-                adapter.notifyItemRangeChanged(position,ORDER_LIST.size());
-                total.setText("€ "+ ORDER_TOTAL);
+                MealModel mm =listOfMeals.get(position);
+                Toast.makeText(OrderActivity.this, "MEAL DESCRIPTION: "+mm.getMealDescription(), Toast.LENGTH_LONG).show();
+//                ORDER_LIST.remove(position);
+//                adapter.notifyItemRemoved(position);
+//                adapter.notifyItemRangeChanged(position,ORDER_LIST.size());
+//                total.setText("€ "+ ORDER_TOTAL);
 
 
                 Toast.makeText(OrderActivity.this, "Delete stuff ("+mm.getMealName()+"", Toast.LENGTH_SHORT).show();
