@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomerOrderListActivity"></activity>
+        <activity android:name=".OrderActivity"></activity>
+        <activity android:name=".CustomerOrderListActivity" />
         <activity android:name=".AdminMealActivity" />
         <activity android:name=".CustomerMealActivity" />
         <activity android:name=".AdminAddMeal" />

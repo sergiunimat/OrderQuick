@@ -1,6 +1,9 @@
 package com.example.orderquick;
 
-public class OrderModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class OrderModel implements Parcelable {
     public int OrderId;
     public int CustomerId;
     public String OrderList;
@@ -14,6 +17,26 @@ public class OrderModel {
         Pending = pending;
         Seen = seen;
     }
+
+    protected OrderModel(Parcel in) {
+        OrderId = in.readInt();
+        CustomerId = in.readInt();
+        OrderList = in.readString();
+        Pending = in.readInt();
+        Seen = in.readInt();
+    }
+
+    public static final Creator<OrderModel> CREATOR = new Creator<OrderModel>() {
+        @Override
+        public OrderModel createFromParcel(Parcel in) {
+            return new OrderModel(in);
+        }
+
+        @Override
+        public OrderModel[] newArray(int size) {
+            return new OrderModel[size];
+        }
+    };
 
     public int getOrderId() {
         return OrderId;
@@ -53,5 +76,19 @@ public class OrderModel {
 
     public void setSeen(int seen) {
         Seen = seen;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(OrderId);
+        dest.writeInt(CustomerId);
+        dest.writeString(OrderList);
+        dest.writeInt(Pending);
+        dest.writeInt(Seen);
     }
 }
