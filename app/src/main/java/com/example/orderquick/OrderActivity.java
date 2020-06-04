@@ -71,7 +71,7 @@ public class OrderActivity extends AppCompatActivity {
         oId=findViewById(R.id.orderidtext);
         oCname = findViewById(R.id.ordercustomername);
         oTotPrice =findViewById(R.id.orderprice);
-//        oCusTel=findViewById(R.id.ordercustometel);
+        oCusTel=findViewById(R.id.custtelnr);
 
         /*WE ALSO HAVE THE LIST*/
 
@@ -79,7 +79,7 @@ public class OrderActivity extends AppCompatActivity {
             oId.setText(orderId);
             oCname.setText(customerName);
             oTotPrice.setText("€: "+totalPrice);
-//            oCusTel.setText("Tel: "+customerTel);
+           oCusTel.setText("Tel: "+customerTel);
             layoutManager = new LinearLayoutManager(this);
             adapter = new EmployeeMealAdapter(listOfMeals);
             mealRecyclerView.setLayoutManager(layoutManager);
