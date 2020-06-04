@@ -548,7 +548,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return mealModel;
     }
 
-    /*I: requires testing!*/
+
     public boolean AddOrderToDb(OrderModel orderModel){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -562,7 +562,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else { return false;}
     }
 
-    /*I: requires testing!*/
+
     public ArrayList<OrderModel> GetOrderList(){
         ArrayList<OrderModel>orderList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -620,7 +620,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return orderList;
     }
 
-    /*I: requires testing!*/
+
     public ArrayList<OrderModel> GetOrderListByCustomerId(int cId){
         ArrayList<OrderModel>orderList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -648,6 +648,19 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return orderList;
 
+    }
+
+    public boolean UpdateOrder(OrderModel orderModel){
+        SQLiteDatabase db =this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ORDER_CUSTOMER_ID,orderModel.getCustomerId());
+        contentValues.put(ORDER_LIST,orderModel.getOrderList());
+        contentValues.put(PENDING,0);
+        contentValues.put(SEEN,orderModel.getSeen());
+        int i =  db.update(ORDERS, contentValues, ORDER_ID + "=" + orderModel.getOrderId(), null);
+        db.close();
+        if (i>=1){ return true; }
+        else { return false;}
     }
 
 }

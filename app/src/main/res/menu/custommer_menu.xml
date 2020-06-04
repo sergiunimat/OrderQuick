@@ -25,9 +25,9 @@
         android:id="@+id/customer_all_orders_id"
         android:title="Check Out"/>
 
-    <item
-        android:id="@+id/customer_orders_id"
-        android:title="Orders"/>
+<!--    <item-->
+<!--        android:id="@+id/customer_orders_id"-->
+<!--        android:title="Orders"/>-->
 
     <item
         android:id="@+id/customer_logout_id"

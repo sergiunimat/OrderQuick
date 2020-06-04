@@ -106,9 +106,9 @@ public class MainCustomerView extends BaseAppClass {
                 Intent profile = new Intent(this,CustomerProfile.class);
                 startActivity(profile);
                 return true;
-            case R.id.customer_orders_id:
-                Toast.makeText(this, "Create and show the list of orders the user has if null show message there isnt any order yet", Toast.LENGTH_LONG).show();
-                return true;
+//            case R.id.customer_orders_id:
+//                Toast.makeText(this, "Create and show the list of orders the user has if null show message there isnt any order yet", Toast.LENGTH_LONG).show();
+//                return true;
             case R.id.customer_logout_id:
                 //set the current user to null and redirect to login
                 APPLICATION_CURRENT_USER =null;

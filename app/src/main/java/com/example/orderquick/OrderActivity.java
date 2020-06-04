@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ public class OrderActivity extends AppCompatActivity {
     private TextView oCname;
     private TextView oTotPrice;
     private TextView oCusTel;
+    private Button oFinish;
 
     /*I: add necessary reference to us the recycler view.*/
     private RecyclerView mealRecyclerView;
@@ -40,11 +43,11 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         /*I: reference to the database helper*/
-        DBHelper dbH = new DBHelper(this);
+        final DBHelper dbH = new DBHelper(this);
 
         /*I: get the order object*/
         Intent inte = getIntent();
-        OrderModel orderModel = inte.getParcelableExtra("OrderObj");
+        final OrderModel orderModel = inte.getParcelableExtra("OrderObj");
         /*I: set the customer name who created the order.*/
         CustomerModel tempCus = dbH.GetCustomerById(orderModel.getCustomerId());
         /*I: get the total amount of price - at the same time we get all the meals from database
@@ -76,6 +79,7 @@ public class OrderActivity extends AppCompatActivity {
         oCname = findViewById(R.id.ordercustomername);
         oTotPrice =findViewById(R.id.orderprice);
         oCusTel=findViewById(R.id.custtelnr);
+        oFinish=findViewById(R.id.completeorderbtnid);
 
         /*WE ALSO HAVE THE LIST*/
 
@@ -95,6 +99,18 @@ public class OrderActivity extends AppCompatActivity {
             Log.i("ERROR-->",e.toString());
         }
 
+        oFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderModel finishedOrder = orderModel;
+                finishedOrder.setPending(0);
+                dbH.UpdateOrder(finishedOrder);
+                Intent back = new Intent(OrderActivity.this,EmployeeMainActivity.class);
+                startActivity(back);
+                finish();
+            }
+        });
+
         adapter.setOnItemClickListener(new EmployeeMealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -103,7 +119,7 @@ public class OrderActivity extends AppCompatActivity {
 //                Toast.makeText(view.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
                 /*I: besides rendering the user to a new activity,
                  * we are also passing the meal id by which the meal can be queried from SQLite*/
-                Intent pIntent = new Intent(OrderActivity.this,CustomerMealActivity.class);
+                Intent pIntent = new Intent(OrderActivity.this,BaseMealActivity.class);
                 pIntent.putExtra("MEAL_ID",mm.getMealId());
                 startActivity(pIntent);
             }
