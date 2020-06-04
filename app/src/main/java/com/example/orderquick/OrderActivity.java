@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.example.orderquick.BaseAppClass.ORDER_LIST;
+import static com.example.orderquick.BaseAppClass.ORDER_TOTAL;
+import static com.example.orderquick.BaseAppClass.TROLLEY_NOTIFICATION;
 
 public class OrderActivity extends AppCompatActivity {
     private TextView oId;
@@ -42,7 +44,7 @@ public class OrderActivity extends AppCompatActivity {
         CustomerModel tempCus = dbH.GetCustomerById(orderModel.getCustomerId());
         /*I: get the total amount of price - at the same time we get all the meals from database
         * all the meals related to the order.*/
-        ArrayList<MealModel> listOfMeals = new ArrayList<>();
+        final ArrayList<MealModel> listOfMeals = new ArrayList<>();
         Double totalAmount = 0.0;
         String[] elements = orderModel.getOrderList().split(",");
         for (String id :elements) {
@@ -78,10 +80,39 @@ public class OrderActivity extends AppCompatActivity {
             mealRecyclerView.setLayoutManager(layoutManager);
             mealRecyclerView.setAdapter(adapter);
 
+
+
         }catch (Exception e){
             Log.i("ERROR-->",e.toString());
         }
 
+        adapter.setOnItemClickListener(new AdminMealAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                /*I: code to open the meal activity you should pass the model to the intent*/
+                MealModel mm = listOfMeals.get(position);
+//                Toast.makeText(view.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
+                /*I: besides rendering the user to a new activity,
+                 * we are also passing the meal id by which the meal can be queried from SQLite*/
+                Intent pIntent = new Intent(OrderActivity.this,CustomerMealActivity.class);
+                pIntent.putExtra("MEAL_ID",mm.getMealId());
+                startActivity(pIntent);
+            }
 
+            @Override
+            public void onDeleteClick(int position) {
+                /*I: element at current position*/
+                MealModel mm =ORDER_LIST.get(position);
+                ORDER_TOTAL = ORDER_TOTAL-Integer.parseInt(mm.getMealPrice());
+                TROLLEY_NOTIFICATION--;
+                ORDER_LIST.remove(position);
+                adapter.notifyItemRemoved(position);
+                adapter.notifyItemRangeChanged(position,ORDER_LIST.size());
+                total.setText("€ "+ ORDER_TOTAL);
+
+
+                Toast.makeText(OrderActivity.this, "Delete stuff ("+mm.getMealName()+"", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
