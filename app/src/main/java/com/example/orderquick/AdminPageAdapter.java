@@ -22,10 +22,8 @@ public class AdminPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new MealsFragment();
             case 1:
-                return new OrdersFragment();
-            case 2:
                 return new CustomersFragment();
-            case 3:
+            case 2:
                 return new EmployeesFragment();
             default:
                 return null;

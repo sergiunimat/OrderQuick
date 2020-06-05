@@ -15,6 +15,7 @@ import java.sql.Blob;
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
+    /*I: constant columns for the customer table*/
     public static final String CUSTOMER = "Customer";
     public static final String CUSTOMER_NAME = "CustomerName";
     public static final String CUSTOMER_PASSWORD = "CustomerPassword";
@@ -23,6 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CUSTOMER_ID = "CustomerId";
     public static final String CUSTOMER_WAGE = "CustomerWage";
 
+    /*I: constant columns for the meals table*/
     public static final String MEAL = "Meal";
     public static final String MEAL_NAME = "MealName";
     public static final String MEAL_PRICE = "MealPrice";
@@ -31,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String MEAL_ID = "MealId";
     public static final String MEAL_IMG = "MealImg";
 
+    /*I: constant columns for the orders table*/
     public static final String ORDERS = "Orders";
     public static final String ORDER_ID = "OrderId";
     public static final String ORDER_CUSTOMER_ID = "OrderCustomerId";
@@ -39,13 +42,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String SEEN = "Seen";
 
 
+    /*I: this variables are useful when storing and retrieving data from database*/
     private ByteArrayOutputStream byteArrayOutputStream;
     private byte[] mealImgInByte;
 
+    /*I: when running the app this will run and eventually create a database defined as db.OrderQuick
+    *    Within the device file explorer there are other several databases used for different development lifetime*/
     public DBHelper(@Nullable Context context) {
-        super(context, "db.TestDbbBBB", null, 1);
+        super(context, "db.OrderQuick", null, 1);
     }
 
+    /*I: this method is essential - when the database is created it will init. all of the required tables*/
     @Override
     public void onCreate(SQLiteDatabase db) {
         /*I: create customer table*/
@@ -86,18 +93,26 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(orderTable);
     }
 
+    /*I: this table is not in particular used however is can be useful for database versioning*/
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
+    /*I: as the name imply.*/
     public CustomerModel GetCustomerById(int customerId){
+        /*I: init database*/
         SQLiteDatabase db = this.getReadableDatabase();
+        /*I: create temporary user*/
         CustomerModel retCust = new CustomerModel();
+        /*I: write the query to be executes*/
         String query = "SELECT * FROM "+CUSTOMER+" WHERE "+CUSTOMER_ID+" = "+customerId;
+        /*I: loop through the result cluster provided from database.*/
         Cursor cursor = db.rawQuery(query, null);
+        /*I: if there exist one element at leasa*/
         if (cursor.moveToFirst()){
             do {
+                /*I: create variables to store data temporarily without this we might have runtime errors.*/
                 int custId= cursor.getInt(0);
                 String customerName = cursor.getString(1);
                 String customerPassword = cursor.getString(2);
@@ -124,12 +139,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean AddCustomerToDb(CustomerModel customerModel){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        /*I: update each specific column with the model attributes passed to this function*/
         contentValues.put(CUSTOMER_NAME,customerModel.getCustomerName());
         contentValues.put(CUSTOMER_PASSWORD,customerModel.getPassword());
         contentValues.put(CUSTOMER_TELEPHONE_NUMBER,customerModel.getTelephoneNumber());
         contentValues.put(CUSTOMER_ROLE,customerModel.getRole());
         contentValues.put(CUSTOMER_WAGE,customerModel.getWage());
+        /*I: execute query*/
         long insert = db.insert(CUSTOMER, null, contentValues);
+        /*I: return tru if suc. / false otherwise */
         db.close();
         if (insert>=1){ return true; }
         else { return false;}
@@ -148,6 +166,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else {return false;}
     }
 
+    /*I: the login function*/
     public CustomerModel  Login(String username,String password){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -156,6 +175,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "' AND "+CUSTOMER_PASSWORD+" = '"+password+"'";
         Cursor cursor = db.rawQuery(query,null);
         CustomerModel dbuser = new CustomerModel();
+        /*I: if there is result initialise it and return it*/
         if (cursor.moveToFirst()){
             dbuser.setCustomerId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CUSTOMER_ID))));
             dbuser.setCustomerName(cursor.getString(cursor.getColumnIndex(CUSTOMER_NAME)));
@@ -231,6 +251,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else {return false;}
     }
 
+    /*I: as the name imply*/
     public boolean DeleteCustomerById(int custId){
         SQLiteDatabase db =this.getWritableDatabase();
         int result = db.delete(CUSTOMER, CUSTOMER_ID + " = " + custId, null);
@@ -276,6 +297,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return customerModels;
     }
 
+    /*I: as the name imply*/
     public boolean AddMealToDb(MealModel meal){
         SQLiteDatabase db =this.getWritableDatabase();
         Bitmap tempImg = meal.getMealImg();
@@ -299,6 +321,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else { return false;}
     }
 
+    /*I: as the name imply*/
     public ArrayList<MealModel> GetAllMeals(){
         ArrayList<MealModel>mealModels = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -340,6 +363,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return mealModels;
     }
 
+    /*I: as the name imply*/
     public ArrayList<MealModel> GetAllPastaMeals(){
         ArrayList<MealModel>mealModels = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -381,6 +405,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return mealModels;
     }
 
+    /*I: as the name imply*/
     public ArrayList<MealModel> GetAllPizzaMeals(){
         ArrayList<MealModel>mealModels = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -422,6 +447,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return mealModels;
     }
 
+    /*I: as the name imply*/
     public ArrayList<MealModel> GetAllVegetarianMeals(){
         ArrayList<MealModel>mealModels = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -463,6 +489,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return mealModels;
     }
 
+    /*I: as the name imply*/
     public ArrayList<MealModel> GetAllDesertMeals(){
         ArrayList<MealModel>mealModels = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -512,6 +539,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else {return false;}
     }
 
+    /*I: as the name imply*/
     public MealModel GetMealById(int mealID){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + MEAL + " WHERE " + MEAL_ID + " = " + mealID;
@@ -548,7 +576,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return mealModel;
     }
 
-
+    /*I: as the name imply*/
     public boolean AddOrderToDb(OrderModel orderModel){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -562,7 +590,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else { return false;}
     }
 
-
+    /*I: as the name imply*/
     public ArrayList<OrderModel> GetOrderList(){
         ArrayList<OrderModel>orderList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -592,6 +620,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    /*I: as the name imply*/
     public ArrayList<OrderModel> GetPendingOrderList(){
         ArrayList<OrderModel>orderList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -620,7 +649,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return orderList;
     }
 
-
+    /*I: as the name imply*/
     public ArrayList<OrderModel> GetOrderListByCustomerId(int cId){
         ArrayList<OrderModel>orderList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -650,6 +679,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    /*I: as the name imply*/
     public boolean UpdateOrder(OrderModel orderModel){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

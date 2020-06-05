@@ -33,16 +33,18 @@ public class AdminEditCustomerActivuty extends AppCompatActivity {
 
         nametextView.setText(customerName);
         telextView.setText(customerTel);
-        ordertextView.setText("99");//this is hardcoded for now.
+        ordertextView.setText("99");//this is hardcoded for now.<- get the list of all user id, for each id check how many orders there are -< too expensive.-
 
         deleteCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*I: deleteing by tel number is perfectly fine since the app never allows duplicate tel nr.*/
                 boolean result = dbH.DeleteCustomerByTelephoneNumber(customerTel);
                 if (result){
                     Toast.makeText(AdminEditCustomerActivuty.this, "Customer ("+customerName+") was deleted!", Toast.LENGTH_SHORT).show();
                     Intent baseAdmin = new Intent(v.getContext(),MainAdminActivity.class);
                     startActivity(baseAdmin);
+                    /*I: disallow user to go to this activity*/
                     finish();
                 }
                 else {

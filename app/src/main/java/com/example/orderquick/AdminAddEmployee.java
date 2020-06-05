@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 public class AdminAddEmployee extends BaseAppClass {
 
+    /*I: global variables*/
     EditText empName;
     EditText empTel;
     EditText empWage;
@@ -22,22 +23,22 @@ public class AdminAddEmployee extends BaseAppClass {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_employee);
-
+        /*I: add db helper instance so that we can use it*/
         final DBHelper dbH = new DBHelper(this);
 
+        /*I: init the global vars.*/
         empName = (EditText)findViewById(R.id.edUserRegName_addemployee);
         empTel = (EditText)findViewById(R.id.edUserRegTell_addemployee);
         empWage = (EditText)findViewById(R.id.edUserWage_addemployee);
         addEmployee = (Button) findViewById(R.id.registerBtn_addemployee);
 
+        /*I: on click even*/
         addEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /*I: check if all fields are filled in */
                 CustomerModel customerModel;
                 try {
-
-
                     if (TextUtils.isEmpty(empName.getText().toString()) ||
                             TextUtils.isEmpty(empTel.getText().toString()) ||
                             TextUtils.isEmpty(empWage.getText().toString())) {
@@ -51,11 +52,13 @@ public class AdminAddEmployee extends BaseAppClass {
                                 empWage.getText().toString());
 
 
+                        /*I: check if the telephone number is uniqe*/
                         boolean userTelExists = dbH.UniqueUserTel(empTel.getText().toString());
                         if (userTelExists) {
                             Toast.makeText(AdminAddEmployee.this, "This telephone number already exists", Toast.LENGTH_LONG).show();
                             empTel.setSelection(0);
                         } else {
+                            /*I: add the customer to db*/
                             boolean check = dbH.AddCustomerToDb(customerModel);
                             if (check) {
                                 Toast.makeText(AdminAddEmployee.this, "Employee added to database", Toast.LENGTH_SHORT).show();

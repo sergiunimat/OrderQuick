@@ -74,11 +74,14 @@ public class CustomersFragment extends Fragment {
                 CustomerViewModel customerViewModel = customerViewModels.get(position);
                 boolean result = dbH.DeleteCustomerByTelephoneNumber(customerViewModel.getTelephone());
                 if (result){
+                    customerViewModels.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyItemRangeChanged(position,customerViewModels.size());
                     Toast.makeText(view.getContext(), "Customer ("+customerViewModel.getName()+") has been deleted", Toast.LENGTH_SHORT).show();
-                    Intent back = new Intent(view.getContext(),MainAdminActivity.class);
-                    startActivity(back);
                 }
-                else {}
+                else {
+                    Toast.makeText(view.getContext(), "Customer ("+customerViewModel.getName()+") has NOT been deleted", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         // Inflate the layout for this fragment

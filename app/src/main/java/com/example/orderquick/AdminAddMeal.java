@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Printer;
 import android.view.View;
@@ -19,7 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class AdminAddMeal extends BaseAppClass {
-
+    /*I: global vars*/
     private EditText mealName;
     private EditText mealPrice;
     private EditText mealDescription;
@@ -47,27 +48,37 @@ public class AdminAddMeal extends BaseAppClass {
         mealImg = (ImageButton)findViewById(R.id.add_meal_picture_id);
         mealAddMeal = (Button)findViewById(R.id.add_meal_button_id);
 
-
+        /*I: on click event*/
         mealAddMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int radioId =mealRadioGroup.getCheckedRadioButtonId();
                 findRadioButton(radioId);
-                /*I: HERE YOU NEED TO CHECK IF THE FIELDS ARE ALL FILLED IN!*/
-
-                MealModel newMeal = new MealModel(-1,
-                        mealName.getText().toString(),
-                        mealPrice.getText().toString(),
-                        mealDescription.getText().toString(),
-                        mealCategory,
-                        mealUriBitmap);
-                boolean result = dbH.AddMealToDb(newMeal);
-                if (result){
-                    Toast.makeText(AdminAddMeal.this, "The ("+newMeal.getMealName()+") is added to database", Toast.LENGTH_SHORT).show();
-                    Intent main = new Intent(v.getContext(),MainAdminActivity.class);
-                    startActivity(main);
+                /*I: Check if all the fields are given*/
+                if (TextUtils.isEmpty(mealName.getText().toString())||
+                    TextUtils.isEmpty(mealPrice.getText().toString())||
+                    TextUtils.isEmpty(mealDescription.getText().toString())){
+                    /*I: if there is filed not filled in*/
+                    Toast.makeText(AdminAddMeal.this, "All the fields must be given", Toast.LENGTH_SHORT).show();
                 }
+                /*I: if he fields are isnerted*/
+                else {
 
+                    MealModel newMeal = new MealModel(-1,
+                            mealName.getText().toString(),
+                            mealPrice.getText().toString(),
+                            mealDescription.getText().toString(),
+                            mealCategory,
+                            mealUriBitmap);
+                    /*I: add user to the database*/
+                    boolean result = dbH.AddMealToDb(newMeal);
+                    if (result){
+                        Toast.makeText(AdminAddMeal.this, "The ("+newMeal.getMealName()+") is added to database", Toast.LENGTH_SHORT).show();
+                        /*I: go to main admin activity*/
+                        Intent main = new Intent(v.getContext(),MainAdminActivity.class);
+                        startActivity(main);
+                    }
+                }
 
             }
         });

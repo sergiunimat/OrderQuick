@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.example.orderquick.BaseAppClass.ORDER_LIST;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,7 +69,7 @@ public class MealsFragment extends Fragment {
                     Toast.makeText(container.getContext(), mm.getMealName(), Toast.LENGTH_SHORT).show();
                     /*I: besides rendering the user to a new activity,
                      * we are also passing the meal id by which the meal can be queried from SQLite*/
-                    Intent pIntent = new Intent(container.getContext(),AdminMealActivity.class);
+                    Intent pIntent = new Intent(container.getContext(),BaseMealActivity.class);
                     pIntent.putExtra("MEAL_ID",mm.getMealId());
                     startActivity(pIntent);
                 }
@@ -79,8 +81,11 @@ public class MealsFragment extends Fragment {
                 MealModel mm =finalListofmm.get(position);
                 boolean result = dbH.DeleteMealById(mm.getMealId());
                 if (result){
-                    Toast.makeText(view.getContext(), "The ("+mm.getMealName()+") successfully deleted ", Toast.LENGTH_SHORT).show();
+                    finalListofmm.remove(position);
                     adapter.notifyItemRemoved(position);
+                    adapter.notifyItemRangeChanged(position,finalListofmm.size());
+                    Toast.makeText(view.getContext(), "The ("+mm.getMealName()+") successfully deleted ", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
                     Toast.makeText(view.getContext(), "The ("+mm.getMealName()+") was not deleted ", Toast.LENGTH_SHORT).show();

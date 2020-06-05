@@ -42,6 +42,7 @@ public class AdminCustomerAdapter extends RecyclerView.Adapter<AdminCustomerAdap
             imageViewDel= (ImageView)itemView.findViewById(R.id.customer_delete_image_view_id);
 
 
+            /*: create a way to call the adapters onclicklistener*/
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

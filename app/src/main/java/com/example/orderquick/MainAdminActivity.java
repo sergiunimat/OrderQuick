@@ -18,7 +18,7 @@ public class MainAdminActivity extends BaseAppClass {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TabItem meal,order,customer,employee;
+    private TabItem meal,customer,employee;
     public AdminPageAdapter pageAdapter;
 
     @Override
@@ -64,7 +64,7 @@ public class MainAdminActivity extends BaseAppClass {
         /*init*/
         tabLayout= (TabLayout)findViewById(R.id.admin_tab_layout_id);
         meal = (TabItem)findViewById(R.id.admin_meal_id);
-        order = (TabItem)findViewById(R.id.admin_order_id);
+//        order = (TabItem)findViewById(R.id.admin_order_id);
         customer = (TabItem)findViewById(R.id.admin_customer_id);
         employee = (TabItem)findViewById(R.id.admin_employee_id);
         viewPager =(ViewPager)findViewById(R.id.admin_view_pager_id);
